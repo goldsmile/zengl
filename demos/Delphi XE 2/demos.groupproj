@@ -1,0 +1,216 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{8BC6A1A2-36E1-4D43-9690-188AF9017666}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="01 - Initialization\demo01.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="02 - Resources\demo02.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="03 - Input\demo03.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="04 - Screen Settings\demo04.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="05 - Primitives\demo05.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="06 - Text\demo06.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="07 - Sprites\demo07.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="08 - Sprite Engine\demo08.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="09 - Sprite Engine(Classes)\demo09.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="10 - Tiles\demo10.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="11 - Grid\demo11.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="12 - Render into Texture\demo12.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="13 - Particles\demo13.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="14 - Sound\demo14.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="15 - Video\demo15.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="16 - Physics\demo16.dproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Default.Personality/>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="demo01">
+			<MSBuild Projects="01 - Initialization\demo01.dproj"/>
+		</Target>
+		<Target Name="demo01:Clean">
+			<MSBuild Projects="01 - Initialization\demo01.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="demo01:Make">
+			<MSBuild Projects="01 - Initialization\demo01.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="demo02">
+			<MSBuild Projects="02 - Resources\demo02.dproj"/>
+		</Target>
+		<Target Name="demo02:Clean">
+			<MSBuild Projects="02 - Resources\demo02.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="demo02:Make">
+			<MSBuild Projects="02 - Resources\demo02.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="demo03">
+			<MSBuild Projects="03 - Input\demo03.dproj"/>
+		</Target>
+		<Target Name="demo03:Clean">
+			<MSBuild Projects="03 - Input\demo03.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="demo03:Make">
+			<MSBuild Projects="03 - Input\demo03.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="demo04">
+			<MSBuild Projects="04 - Screen Settings\demo04.dproj"/>
+		</Target>
+		<Target Name="demo04:Clean">
+			<MSBuild Projects="04 - Screen Settings\demo04.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="demo04:Make">
+			<MSBuild Projects="04 - Screen Settings\demo04.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="demo05">
+			<MSBuild Projects="05 - Primitives\demo05.dproj"/>
+		</Target>
+		<Target Name="demo05:Clean">
+			<MSBuild Projects="05 - Primitives\demo05.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="demo05:Make">
+			<MSBuild Projects="05 - Primitives\demo05.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="demo06">
+			<MSBuild Projects="06 - Text\demo06.dproj"/>
+		</Target>
+		<Target Name="demo06:Clean">
+			<MSBuild Projects="06 - Text\demo06.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="demo06:Make">
+			<MSBuild Projects="06 - Text\demo06.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="demo07">
+			<MSBuild Projects="07 - Sprites\demo07.dproj"/>
+		</Target>
+		<Target Name="demo07:Clean">
+			<MSBuild Projects="07 - Sprites\demo07.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="demo07:Make">
+			<MSBuild Projects="07 - Sprites\demo07.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="demo08">
+			<MSBuild Projects="08 - Sprite Engine\demo08.dproj"/>
+		</Target>
+		<Target Name="demo08:Clean">
+			<MSBuild Projects="08 - Sprite Engine\demo08.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="demo08:Make">
+			<MSBuild Projects="08 - Sprite Engine\demo08.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="demo09">
+			<MSBuild Projects="09 - Sprite Engine(Classes)\demo09.dproj"/>
+		</Target>
+		<Target Name="demo09:Clean">
+			<MSBuild Projects="09 - Sprite Engine(Classes)\demo09.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="demo09:Make">
+			<MSBuild Projects="09 - Sprite Engine(Classes)\demo09.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="demo10">
+			<MSBuild Projects="10 - Tiles\demo10.dproj"/>
+		</Target>
+		<Target Name="demo10:Clean">
+			<MSBuild Projects="10 - Tiles\demo10.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="demo10:Make">
+			<MSBuild Projects="10 - Tiles\demo10.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="demo11">
+			<MSBuild Projects="11 - Grid\demo11.dproj"/>
+		</Target>
+		<Target Name="demo11:Clean">
+			<MSBuild Projects="11 - Grid\demo11.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="demo11:Make">
+			<MSBuild Projects="11 - Grid\demo11.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="demo12">
+			<MSBuild Projects="12 - Render into Texture\demo12.dproj"/>
+		</Target>
+		<Target Name="demo12:Clean">
+			<MSBuild Projects="12 - Render into Texture\demo12.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="demo12:Make">
+			<MSBuild Projects="12 - Render into Texture\demo12.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="demo13">
+			<MSBuild Projects="13 - Particles\demo13.dproj"/>
+		</Target>
+		<Target Name="demo13:Clean">
+			<MSBuild Projects="13 - Particles\demo13.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="demo13:Make">
+			<MSBuild Projects="13 - Particles\demo13.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="demo14">
+			<MSBuild Projects="14 - Sound\demo14.dproj"/>
+		</Target>
+		<Target Name="demo14:Clean">
+			<MSBuild Projects="14 - Sound\demo14.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="demo14:Make">
+			<MSBuild Projects="14 - Sound\demo14.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="demo15">
+			<MSBuild Projects="15 - Video\demo15.dproj"/>
+		</Target>
+		<Target Name="demo15:Clean">
+			<MSBuild Projects="15 - Video\demo15.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="demo15:Make">
+			<MSBuild Projects="15 - Video\demo15.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="demo16">
+			<MSBuild Projects="16 - Physics\demo16.dproj"/>
+		</Target>
+		<Target Name="demo16:Clean">
+			<MSBuild Projects="16 - Physics\demo16.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="demo16:Make">
+			<MSBuild Projects="16 - Physics\demo16.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="demo01;demo02;demo03;demo04;demo05;demo06;demo07;demo08;demo09;demo10;demo11;demo12;demo13;demo14;demo15;demo16"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="demo01:Clean;demo02:Clean;demo03:Clean;demo04:Clean;demo05:Clean;demo06:Clean;demo07:Clean;demo08:Clean;demo09:Clean;demo10:Clean;demo11:Clean;demo12:Clean;demo13:Clean;demo14:Clean;demo15:Clean;demo16:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="demo01:Make;demo02:Make;demo03:Make;demo04:Make;demo05:Make;demo06:Make;demo07:Make;demo08:Make;demo09:Make;demo10:Make;demo11:Make;demo12:Make;demo13:Make;demo14:Make;demo15:Make;demo16:Make"/>
+		</Target>
+		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
+	</Project>

@@ -1,0 +1,522 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="9"/>
+    <General>
+      <Flags>
+        <MainUnitHasCreateFormStatements Value="False"/>
+        <MainUnitHasTitleStatement Value="False"/>
+        <Runnable Value="False"/>
+      </Flags>
+      <SessionStorage Value="InProjectDir"/>
+      <MainUnit Value="0"/>
+      <UseAppBundle Value="False"/>
+      <ResourceType Value="res"/>
+    </General>
+    <BuildModes Count="4">
+      <Item1 Name="Release" Default="True"/>
+      <Item2 Name="Debug">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="./libZenGL"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="../../lib/jpeg/$(TargetCPU)-$(TargetOS);../../lib/ogg/$(TargetCPU)-$(TargetOS);../../lib/theora/$(TargetCPU)-$(TargetOS);../../lib/zlib/$(TargetCPU)-$(TargetOS);../../lib/zip/$(TargetCPU)-$(TargetOS)"/>
+            <UnitOutputDirectory Value="../tmp"/>
+          </SearchPaths>
+          <Conditionals Value="if TargetOS = 'darwin' Then
+  CustomOptions += ' -k&quot;-no_order_inits&quot; -k&quot;-no_order_data&quot; -k&quot;-macosx_version_min&quot; -k&quot;10.4&quot;';"/>
+          <BuildMacros>
+            <Count Value="1"/>
+            <Item1>
+              <Identifier Value="MacOSX"/>
+            </Item1>
+          </BuildMacros>
+          <Parsing>
+            <SyntaxOptions>
+              <SyntaxMode Value="Delphi"/>
+              <CStyleOperator Value="False"/>
+              <CPPInline Value="False"/>
+              <UseAnsiStrings Value="False"/>
+            </SyntaxOptions>
+          </Parsing>
+          <Linking>
+            <Debugging>
+              <DebugInfoType Value="dsDwarf2Set"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+              <ExecutableType Value="Library"/>
+            </Options>
+          </Linking>
+          <Other>
+            <Verbosity>
+              <ShowNotes Value="False"/>
+              <ShowHints Value="False"/>
+              <ShowGenInfo Value="False"/>
+            </Verbosity>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
+        </CompilerOptions>
+      </Item2>
+      <Item3 Name="C/C++ Support, Release">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="./libZenGL"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="../../lib/jpeg/$(TargetCPU)-$(TargetOS);../../lib/ogg/$(TargetCPU)-$(TargetOS);../../lib/theora/$(TargetCPU)-$(TargetOS);../../lib/zlib/$(TargetCPU)-$(TargetOS);../../lib/zip/$(TargetCPU)-$(TargetOS)"/>
+            <UnitOutputDirectory Value="../tmp"/>
+          </SearchPaths>
+          <Conditionals Value="if TargetOS = 'darwin' Then
+  CustomOptions += ' -k&quot;-no_order_inits&quot; -k&quot;-no_order_data&quot; -k&quot;-macosx_version_min&quot; -k&quot;10.4&quot;';"/>
+          <BuildMacros>
+            <Count Value="1"/>
+            <Item1>
+              <Identifier Value="MacOSX"/>
+            </Item1>
+          </BuildMacros>
+          <Parsing>
+            <SyntaxOptions>
+              <SyntaxMode Value="Delphi"/>
+              <CStyleOperator Value="False"/>
+              <CPPInline Value="False"/>
+              <UseAnsiStrings Value="False"/>
+            </SyntaxOptions>
+          </Parsing>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <Optimizations>
+              <OptimizationLevel Value="3"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <UseLineInfoUnit Value="False"/>
+              <StripSymbols Value="True"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+              <ExecutableType Value="Library"/>
+            </Options>
+          </Linking>
+          <Other>
+            <Verbosity>
+              <ShowNotes Value="False"/>
+              <ShowHints Value="False"/>
+              <ShowGenInfo Value="False"/>
+            </Verbosity>
+            <CustomOptions Value="-dUSE_EXPORT_C -Cccdecl"/>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
+        </CompilerOptions>
+      </Item3>
+      <Item4 Name="C/C++ Support, Debug">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="./libZenGL"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="../../lib/jpeg/$(TargetCPU)-$(TargetOS);../../lib/ogg/$(TargetCPU)-$(TargetOS);../../lib/theora/$(TargetCPU)-$(TargetOS);../../lib/zlib/$(TargetCPU)-$(TargetOS);../../lib/zip/$(TargetCPU)-$(TargetOS)"/>
+            <UnitOutputDirectory Value="../tmp"/>
+          </SearchPaths>
+          <Conditionals Value="if TargetOS = 'darwin' Then
+  CustomOptions += ' -k&quot;-no_order_inits&quot; -k&quot;-no_order_data&quot; -k&quot;-macosx_version_min&quot; -k&quot;10.4&quot;';"/>
+          <BuildMacros>
+            <Count Value="1"/>
+            <Item1>
+              <Identifier Value="MacOSX"/>
+            </Item1>
+          </BuildMacros>
+          <Parsing>
+            <SyntaxOptions>
+              <SyntaxMode Value="Delphi"/>
+              <CStyleOperator Value="False"/>
+              <CPPInline Value="False"/>
+              <UseAnsiStrings Value="False"/>
+            </SyntaxOptions>
+          </Parsing>
+          <Linking>
+            <Debugging>
+              <DebugInfoType Value="dsDwarf2Set"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+              <ExecutableType Value="Library"/>
+            </Options>
+          </Linking>
+          <Other>
+            <Verbosity>
+              <ShowNotes Value="False"/>
+              <ShowHints Value="False"/>
+              <ShowGenInfo Value="False"/>
+            </Verbosity>
+            <CustomOptions Value="-dUSE_EXPORT_C -Cccdecl"/>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
+        </CompilerOptions>
+      </Item4>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IgnoreBinaries Value="False"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|ppw|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+        <LaunchingApplication PathPlusParams="/usr/X11R6/bin/xterm -T 'Lazarus Run Output' -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
+      </local>
+    </RunParams>
+    <Units Count="56">
+      <Unit0>
+        <Filename Value="../ZenGL.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ZenGL"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="../zgl_application.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_application"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="../zgl_camera_2d.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_camera_2d"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="../zgl_collision_2d.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_collision_2d"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="../zgl_file.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_file"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="../zgl_font.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_font"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="../zgl_fx.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_fx"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="../zgl_ini.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_ini"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="../zgl_keyboard.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_keyboard"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="../zgl_log.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_log"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="../zgl_main.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_main"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="../zgl_math_2d.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_math_2d"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="../zgl_memory.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_memory"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="../zgl_mouse.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_mouse"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="../zgl_opengl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_opengl"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="../zgl_opengl_all.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_opengl_all"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="../zgl_render.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_render"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="../zgl_primitives_2d.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_primitives_2d"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="../zgl_render_target.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_render_target"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="../zgl_screen.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_screen"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="../zgl_sound.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_sound"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="../zgl_sound_dsound.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_sound_dsound"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="../zgl_sound_ogg.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_sound_ogg"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="../zgl_sound_openal.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_sound_openal"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="../zgl_sound_wav.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_sound_wav"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="../zgl_sprite_2d.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_sprite_2d"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="../zgl_text.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_text"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="../zgl_textures.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_textures"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="../zgl_textures_jpg.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_textures_jpg"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="../zgl_textures_png.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_textures_png"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="../zgl_textures_tga.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_textures_tga"/>
+      </Unit30>
+      <Unit31>
+        <Filename Value="../zgl_timers.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_timers"/>
+      </Unit31>
+      <Unit32>
+        <Filename Value="../zgl_types.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_types"/>
+      </Unit32>
+      <Unit33>
+        <Filename Value="../zgl_utils.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_utils"/>
+      </Unit33>
+      <Unit34>
+        <Filename Value="../zgl_window.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_window"/>
+      </Unit34>
+      <Unit35>
+        <Filename Value="../zgl_sengine_2d.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_sengine_2d"/>
+      </Unit35>
+      <Unit36>
+        <Filename Value="../zgl_grid_2d.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_grid_2d"/>
+      </Unit36>
+      <Unit37>
+        <Filename Value="../zgl_particles_2d.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_particles_2d"/>
+      </Unit37>
+      <Unit38>
+        <Filename Value="../zgl_touch.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_touch"/>
+      </Unit38>
+      <Unit39>
+        <Filename Value="../zgl_joystick.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_joystick"/>
+      </Unit39>
+      <Unit40>
+        <Filename Value="../zgl_opengles.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_opengles"/>
+      </Unit40>
+      <Unit41>
+        <Filename Value="../zgl_opengles_all.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_opengles_all"/>
+      </Unit41>
+      <Unit42>
+        <Filename Value="../zgl_resources.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_resources"/>
+      </Unit42>
+      <Unit43>
+        <Filename Value="../zgl_lib_msvcrt.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_lib_msvcrt"/>
+      </Unit43>
+      <Unit44>
+        <Filename Value="../zgl_lib_zip.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_lib_zip"/>
+      </Unit44>
+      <Unit45>
+        <Filename Value="../zgl_config.cfg"/>
+        <IsPartOfProject Value="True"/>
+      </Unit45>
+      <Unit46>
+        <Filename Value="../zgl_export_c.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_export_c"/>
+      </Unit46>
+      <Unit47>
+        <Filename Value="../zgl_fpc.cfg"/>
+        <IsPartOfProject Value="True"/>
+      </Unit47>
+      <Unit48>
+        <Filename Value="../zgl_render_2d.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_render_2d"/>
+      </Unit48>
+      <Unit49>
+        <Filename Value="../zgl_textures_pvr.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_textures_pvr"/>
+      </Unit49>
+      <Unit50>
+        <Filename Value="../zgl_video.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_video"/>
+      </Unit50>
+      <Unit51>
+        <Filename Value="../zgl_video_theora.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_video_theora"/>
+      </Unit51>
+      <Unit52>
+        <Filename Value="../zgl_lib_ogg.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_lib_ogg"/>
+      </Unit52>
+      <Unit53>
+        <Filename Value="../zgl_lib_theora.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_lib_theora"/>
+      </Unit53>
+      <Unit54>
+        <Filename Value="../zgl_threads.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_threads"/>
+      </Unit54>
+      <Unit55>
+        <Filename Value="../zgl_tiles_2d.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="zgl_tiles_2d"/>
+      </Unit55>
+    </Units>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <Target>
+      <Filename Value="./libZenGL"/>
+    </Target>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="../../lib/jpeg/$(TargetCPU)-$(TargetOS);../../lib/ogg/$(TargetCPU)-$(TargetOS);../../lib/theora/$(TargetCPU)-$(TargetOS);../../lib/zlib/$(TargetCPU)-$(TargetOS);../../lib/zip/$(TargetCPU)-$(TargetOS)"/>
+      <UnitOutputDirectory Value="../tmp"/>
+    </SearchPaths>
+    <Conditionals Value="if TargetOS = 'darwin' Then
+  CustomOptions += ' -k&quot;-no_order_inits&quot; -k&quot;-no_order_data&quot; -k&quot;-macosx_version_min&quot; -k&quot;10.4&quot;';"/>
+    <BuildMacros>
+      <Count Value="1"/>
+      <Item1>
+        <Identifier Value="MacOSX"/>
+      </Item1>
+    </BuildMacros>
+    <Parsing>
+      <SyntaxOptions>
+        <SyntaxMode Value="Delphi"/>
+        <CStyleOperator Value="False"/>
+        <CPPInline Value="False"/>
+        <UseAnsiStrings Value="False"/>
+      </SyntaxOptions>
+    </Parsing>
+    <CodeGeneration>
+      <SmartLinkUnit Value="True"/>
+      <Optimizations>
+        <OptimizationLevel Value="3"/>
+      </Optimizations>
+    </CodeGeneration>
+    <Linking>
+      <Debugging>
+        <GenerateDebugInfo Value="False"/>
+        <UseLineInfoUnit Value="False"/>
+        <StripSymbols Value="True"/>
+      </Debugging>
+      <LinkSmart Value="True"/>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+        <ExecutableType Value="Library"/>
+      </Options>
+    </Linking>
+    <Other>
+      <Verbosity>
+        <ShowNotes Value="False"/>
+        <ShowHints Value="False"/>
+        <ShowGenInfo Value="False"/>
+      </Verbosity>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+</CONFIG>
