@@ -299,7 +299,7 @@ const
   GL_DYNAMIC_DRAW_ARB                 = $88E8;
 
   // Triangulation
-  {GLU_TESS_BEGIN                    = $18704;
+  GLU_TESS_BEGIN                    = $18704;
   GLU_TESS_VERTEX                   = $18705;
   GLU_TESS_END                      = $18706;
   GLU_TESS_ERROR                    = $18707;
@@ -310,7 +310,7 @@ const
   GLU_TESS_END_DATA                 = $1870C;
   GLU_TESS_ERROR_DATA               = $1870D;
   GLU_TESS_EDGE_FLAG_DATA           = $1870E;
-  GLU_TESS_COMBINE_DATA             = $1870F;}
+  GLU_TESS_COMBINE_DATA             = $1870F;
 
 type
   GLenum     = Cardinal;      PGLenum     = ^GLenum;
