@@ -91,7 +91,12 @@ function dlsym  ( Lib : Pointer; Name : PAnsiChar) : Pointer; cdecl; external 'd
 function select( n : longint; readfds, writefds, exceptfds : Pointer; var timeout : timeVal ) : longint; cdecl; external 'libc';
 
 function printf( format : PAnsiChar; const args : array of const ) : Integer; cdecl; external 'libc';
+
 {$ENDIF}
+{$IF DEFINED(LINUX) and DEFINED(CPUx86_64)}
+// GLIBC 2.14 is too new, so replace memcpy with Pascal implementation via hack
+function memcpy( destination, source : Pointer; num : csize_t ) : Pointer; cdecl; public name 'memcpy';
+{$IFEND}
 {$IFDEF ANDROID}
 function __android_log_write( prio : LongInt; tag, text : PAnsiChar ) : LongInt; cdecl; external 'liblog.so' name '__android_log_write';
 {$ENDIF}
@@ -362,6 +367,14 @@ begin
   if len > 0 Then
     System.Move( Str[ 1 ], Result^, len );
 end;
+
+{$IF DEFINED(LINUX) and DEFINED(CPUx86_64)}
+function memcpy( destination, source : Pointer; num : csize_t ) : Pointer;
+begin
+  Move( source^, destination^, num );
+  Result := destination;
+end;
+{$IFEND}
 
 {$IFDEF WINDOWS}
 function utf8_GetPWideChar( const Str : UTF8String ) : PWideChar;

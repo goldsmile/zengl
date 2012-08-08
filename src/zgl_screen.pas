@@ -342,6 +342,12 @@ begin
     begin
       scrCurrModeW := Round( UIScreen.mainScreen.currentMode.size.width );
       scrCurrModeH := Round( UIScreen.mainScreen.currentMode.size.height );
+
+      if ( UIDevice.currentDevice.userInterfaceIdiom = UIUserInterfaceIdiomPhone ) and ( UIDevice.currentDevice.model.rangeOfString( utf8_GetNSString( 'iPad' ) ).location <> NSNotFound ) Then
+        begin
+          scrCurrModeW := 480;
+          scrCurrModeH := 320;
+        end;
     end else
       begin
         scrCurrModeW := Round( UIScreen.mainScreen.bounds.size.width );
