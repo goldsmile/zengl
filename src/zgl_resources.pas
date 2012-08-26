@@ -501,15 +501,9 @@ begin
                     if IsFromFile Then
                       begin
                         if not file_Exists( FileName ) Then
-                          begin
-                            log_Add( 'Cannot read "' + FileName + '"' );
-
-                            FileName := '';
-                            FreeMem( Resource );
-                            Resource := nil;
-                            DEC( resQueueSize[ id ] );
-                          end else
-                            FileLoader( FileName, pData, Width, Height, Format )
+                          log_Add( 'Cannot read "' + FileName + '"' )
+                        else
+                          FileLoader( FileName, pData, Width, Height, Format )
                       end else
                         begin
                           FileName := 'From Memory';
@@ -519,6 +513,18 @@ begin
                     if not Assigned( pData ) Then
                       begin
                         log_Add( 'Unable to load texture: "' + FileName + '"' );
+
+                        // FIXME: Temporary solution, change in future
+                        Texture.ID     := managerZeroTexture.ID;
+                        Texture.Width  := managerZeroTexture.Width;
+                        Texture.Height := managerZeroTexture.Height;
+                        Texture.Format := managerZeroTexture.Format;
+                        Texture.U      := managerZeroTexture.U;
+                        Texture.V      := managerZeroTexture.V;
+                        SetLength( Texture.FramesCoord, Length( managerZeroTexture.FramesCoord ) );
+                        for i := 0 to High( managerZeroTexture.FramesCoord ) do
+                          Texture.FramesCoord[ i ] := managerZeroTexture.FramesCoord[ i ];
+                        Texture.Flags  := managerZeroTexture.Flags;
 
                         FileName := '';
                         FreeMem( Resource );
@@ -655,15 +661,9 @@ begin
                     if IsFromFile Then
                       begin
                         if not file_Exists( FileName ) Then
-                          begin
-                            log_Add( 'Cannot read "' + FileName + '"' );
-
-                            FileName := '';
-                            FreeMem( Resource );
-                            Resource := nil;
-                            DEC( resQueueSize[ id ] );
-                          end else
-                            FileLoader( FileName, Sound.Data, Sound.Size, Format, Sound.Frequency )
+                          log_Add( 'Cannot read "' + FileName + '"' )
+                        else
+                          FileLoader( FileName, Sound.Data, Sound.Size, Format, Sound.Frequency )
                       end else
                         begin
                           FileName := 'From Memory';

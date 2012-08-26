@@ -273,7 +273,7 @@ begin
 
       t := timer_GetTicks();
       {$IFDEF WINDESKTOP}
-      // Workaround for bug with unstable time between frames...
+      // Workaround for a bug with unstable time between frames(happens when videocard trying to reclock GPU frequency/etc.)...
       if Assigned( app_PUpdate ) and ( scrVSync ) and ( appFPS > 0 ) and ( appFPS = scrRefresh ) and ( appFlags and APP_USE_DT_CORRECTION > 0 ) Then
         app_PUpdate( 1000 / appFPS )
       else
@@ -639,6 +639,11 @@ begin
         if not wndFullScreen Then
           wnd_Update();
       end;
+    WM_SETFOCUS:
+      begin
+        if ( wndFullScreen ) and ( not wndFirst ) Then
+          scr_SetOptions( scrWidth, scrHeight, scrRefresh, wndFullScreen, scrVSync );
+      end;
     WM_ACTIVATEAPP:
       begin
         if appMinimized Then exit;
@@ -652,8 +657,6 @@ begin
             key_ClearState();
             FillChar( mouseDown[ 0 ], 3, 0 );
             mouse_ClearState();
-            if ( wndFullScreen ) and ( not wndFirst ) Then
-              scr_SetOptions( scrWidth, scrHeight, scrRefresh, wndFullScreen, scrVSync );
           end else
             if ( wParam = 0 ) and ( appFocus ) Then
               begin

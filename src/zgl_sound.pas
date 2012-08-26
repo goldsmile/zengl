@@ -214,7 +214,7 @@ const
 
 var
   sndAutoPaused : Boolean;
-  sndVolume     : Single  = 1;
+  sndVolume     : Single = 1;
   sfVolume      : Single = 1;
 
   sfStream    : array[ 1..SND_MAX ] of zglTSoundStream;
