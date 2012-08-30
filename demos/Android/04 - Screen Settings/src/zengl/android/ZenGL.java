@@ -71,6 +71,7 @@ public class ZenGL extends GLSurfaceView
 
 		InputManager = (InputMethodManager)context.getSystemService( Context.INPUT_METHOD_SERVICE );
 		setFocusableInTouchMode( true );
+		((Activity)context).getWindow().setSoftInputMode( WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN );
 
 		zglNativeInit( SourceDir, DataDir );
 		Main();
@@ -203,6 +204,8 @@ public class ZenGL extends GLSurfaceView
 			HideKeyboard();
 		else if ( keyCode == KeyEvent.KEYCODE_DEL )
 			zglNativeBackspace();
+		else if ( keyCode >= KeyEvent.KEYCODE_0 && keyCode <= KeyEvent.KEYCODE_9 )
+			zglNativeInputText( ((Integer)(keyCode - 7)).toString() );
 
 		return super.onKeyDown( keyCode, event );
 	}

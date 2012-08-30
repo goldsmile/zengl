@@ -45,12 +45,10 @@ procedure Draw;
   var
     w : Single;
 begin
-  text_Draw( fntMain, 0, 0, 'Escape - Exit' );
-
   // RU: Координаты "пальцев" можно получить при помощи функций touch_X и touch_Y.
   // EN: "Finger" coordinates can be got using functions touch_X and touch_Y.
-  text_Draw( fntMain, 0, 16, 'First finger X, Y: ' + u_IntToStr( touch_X( 0 ) ) + '; ' + u_IntToStr( touch_Y( 0 ) ) );
-  text_Draw( fntMain, 0, 32, 'Second finger X, Y: ' + u_IntToStr( touch_X( 1 ) ) + '; ' + u_IntToStr( touch_Y( 1 ) ) );
+  text_Draw( fntMain, 0, 0, 'First finger X, Y: ' + u_IntToStr( touch_X( 0 ) ) + '; ' + u_IntToStr( touch_Y( 0 ) ) );
+  text_Draw( fntMain, 0, 16, 'Second finger X, Y: ' + u_IntToStr( touch_X( 1 ) ) + '; ' + u_IntToStr( touch_Y( 1 ) ) );
 
   // RU: Выводим введённый пользователем текст.
   // EN: Show the inputted text.
