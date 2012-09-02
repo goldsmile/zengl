@@ -1722,7 +1722,7 @@ begin
       if Assigned( touch_PPress ) Then
         touch_PPress( ID );
     end else
-      if ( touchDown[ ID ] ) and ( Pressure = 0 ) Then
+      if ( touchDown[ ID ] ) and ( Pressure <= 0 ) Then
         begin
           touchDown[ ID ]   := FALSE;
           touchUp[ ID ]     := TRUE;
