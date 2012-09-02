@@ -144,7 +144,8 @@ public class ZenGL extends GLSurfaceView
 			{
 				int pointerID = ( action & MotionEvent.ACTION_POINTER_ID_MASK ) >> MotionEvent.ACTION_POINTER_ID_SHIFT;
 				int pointerIndex = event.getPointerId( pointerID );
-				zglNativeTouch( pointerID, event.getX( pointerIndex ), event.getY( pointerIndex ), event.getPressure( pointerIndex ) );
+				if ( pointerID >= 0 && pointerID < event.getPointerCount() )
+					zglNativeTouch( pointerIndex, event.getX( pointerID ), event.getY( pointerID ), event.getPressure( pointerID ) );
 				break;
 			}
 
@@ -152,7 +153,8 @@ public class ZenGL extends GLSurfaceView
 			{
 				int pointerID = ( action & MotionEvent.ACTION_POINTER_ID_MASK ) >> MotionEvent.ACTION_POINTER_ID_SHIFT;
 				int pointerIndex = event.getPointerId( pointerID );
-				zglNativeTouch( pointerID, event.getX( pointerIndex ), event.getY( pointerIndex ), 0 );
+				if ( pointerID >= 0 && pointerID < event.getPointerCount() )
+					zglNativeTouch( pointerIndex, event.getX( pointerID ), event.getY( pointerID ), 0 );
 				break;
 			}
 		}
