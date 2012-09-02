@@ -238,15 +238,7 @@ begin
         2: format := SND_FORMAT_STEREO16;
       end;
 
-      Size := 0;
-      zgl_GetMem( Buffer, 64 * 1024 );
-      repeat
-        bytesRead := decoderRead( _vf, Buffer, 64 * 1024, _End );
-        INC( Size, bytesRead );
-      until _End;
-      FreeMem( Buffer );
-      ov_clear( _vf );
-
+      Size := ov_pcm_total( _vf, -1 ) * 2 * _vi.channels;
       if ov_open_callbacks( nil, _vf, Pointer( @PByteArray( Memory.Memory )[ Memory.Position ] ), Memory.Size - Memory.Position, _vc ) >= 0 Then
         begin
           GetMem( Data, Size );
