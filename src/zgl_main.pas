@@ -273,7 +273,7 @@ begin
   wnd_SetCaption( wndCaption );
   appWork := TRUE;
 
-  {$IF DEFINED(LINUX) or DEFINED(MACOSX)}
+  {$IF DEFINED(WINDOWS) or DEFINED(LINUX) or DEFINED(MACOSX)}
   scr_SetOptions( wndWidth, wndHeight, scrRefresh, wndFullScreen, scrVSync );
   {$IFEND}
   {$IFDEF iOS}
