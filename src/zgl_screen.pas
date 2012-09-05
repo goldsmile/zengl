@@ -298,10 +298,13 @@ begin
     scr_GetResList();
 {$ENDIF}
 {$IFDEF WINDOWS}
-  scrMonitor := MonitorFromWindow( wndHandle, MONITOR_DEFAULTTOPRIMARY );
-  FillChar( scrMonInfo, SizeOf( MONITORINFOEX ), 0 );
-  scrMonInfo.cbSize := SizeOf( MONITORINFOEX );
-  GetMonitorInfoW( scrMonitor, scrMonInfo );
+  if scrMonInfo.cbSize <> SizeOf( MONITORINFOEX ) Then
+    begin
+      scrMonitor := MonitorFromWindow( wndHandle, MONITOR_DEFAULTTOPRIMARY );
+      FillChar( scrMonInfo, SizeOf( MONITORINFOEX ), 0 );
+      scrMonInfo.cbSize := SizeOf( MONITORINFOEX );
+      GetMonitorInfoW( scrMonitor, scrMonInfo );
+    end;
 
   if appInitialized and ( not wndFullScreen ) Then
     begin

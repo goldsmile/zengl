@@ -537,10 +537,6 @@ begin
 end;
 
 procedure wnd_SetPos( X, Y : Integer );
-  {$IFDEF WINDOWS}
-  var
-    mode : LongWord;
-  {$ENDIF}
   {$IFDEF MACOSX}
   var
     clipRgn : RgnHandle;
@@ -569,16 +565,11 @@ begin
       XMoveWindow( scrDisplay, wndHandle, 0, 0 );
 {$ENDIF}
 {$IFDEF WINDOWS}
-  if not appFocus Then
-    mode := HWND_BOTTOM
-  else
-    mode := HWND_TOPMOST;
-
   if wndHandle <> 0 Then
     if ( not wndFullScreen ) or ( not appFocus ) Then
-      SetWindowPos( wndHandle, mode, wndX, wndY, wndWidth + ( wndBrdSizeX * 2 ), wndHeight + ( wndBrdSizeY * 2 + wndCpnSize ), SWP_NOACTIVATE )
+      SetWindowPos( wndHandle, HWND_NOTOPMOST, wndX, wndY, wndWidth + ( wndBrdSizeX * 2 ), wndHeight + ( wndBrdSizeY * 2 + wndCpnSize ), SWP_NOACTIVATE )
     else
-      SetWindowPos( wndHandle, mode, 0, 0, wndWidth, wndHeight, SWP_NOACTIVATE );
+      SetWindowPos( wndHandle, HWND_TOPMOST, 0, 0, wndWidth, wndHeight, SWP_NOACTIVATE );
 {$ENDIF}
 {$IFDEF MACOSX}
   if Assigned( wndHandle ) Then
