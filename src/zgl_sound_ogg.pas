@@ -229,7 +229,11 @@ begin
   if not vorbisInit Then exit;
 
   FillChar( _vc, SizeOf( _vc ), 0 );
-  if ov_open_callbacks( nil, _vf, Pointer( @PByteArray( Memory.Memory )[ Memory.Position ] ), Memory.Size - Memory.Position, _vc ) >= 0 Then
+  _vc.read  := @ogg_ReadMem;
+  _vc.seek  := @ogg_SeekMem;
+  _vc.close := @ogg_CloseMem;
+  _vc.tell  := @ogg_GetPosMem;
+  if ov_open_callbacks( @Memory.Memory, _vf, Pointer( @PByteArray( Memory.Memory )[ Memory.Position ] ), Memory.Size - Memory.Position, _vc ) >= 0 Then
     begin
       _vi       := ov_info( _vf, -1 );
       Frequency := _vi.rate;
@@ -239,12 +243,9 @@ begin
       end;
 
       Size := ov_pcm_total( _vf, -1 ) * 2 * _vi.channels;
-      if ov_open_callbacks( nil, _vf, Pointer( @PByteArray( Memory.Memory )[ Memory.Position ] ), Memory.Size - Memory.Position, _vc ) >= 0 Then
-        begin
-          GetMem( Data, Size );
-          decoderRead( _vf, Data, Size, _end );
-          ov_clear( _vf );
-        end;
+      GetMem( Data, Size );
+      decoderRead( _vf, Data, Size, _end );
+      ov_clear( _vf );
     end;
 end;
 
