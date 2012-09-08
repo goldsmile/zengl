@@ -14,11 +14,8 @@ uses
   ExtCtrls,
 
 {$IFDEF LINUX}
-  {$IFDEF LCLGTK}
-  GLib, GTK, GDK,
-  {$ENDIF}
   {$IFDEF LCLGTK2}
-  GLib2, GTK2, GDK2, GDK2x,
+  GTK2, GDK2x, GTK2Proc,
   {$ENDIF}
 {$ENDIF}
 
@@ -110,8 +107,6 @@ procedure TForm1.FormActivate(Sender: TObject);
 {$IFDEF LINUX}
   var
     widget : PGtkWidget;
-    socket : PGtkWidget;
-    glist  : PGlist;
 {$ENDIF}
 begin
   if not zglInited Then
@@ -130,18 +125,8 @@ begin
       wnd_ShowCursor( TRUE );
 
     {$IFDEF LINUX}
-      glist  := gtk_container_children( GTK_CONTAINER( PGtkWidget( Panel1.Handle ) ) );
-      widget := PGtkWidget( glist.data );
-      socket := gtk_socket_new();
-      gtk_container_add( GTK_CONTAINER( widget ), socket );
-
-      gtk_widget_show( socket );
-      gtk_widget_show( widget );
-
-      gtk_widget_realize( socket );
-      {$IFDEF LCLGTK}
-      zgl_InitToHandle( ( PGdkWindowPrivate( widget.window ) ).xwindow );
-      {$ENDIF}
+      widget := GetFixedWidget( PGtkWidget( Panel1.Handle ) );
+      gtk_widget_realize( widget );
       {$IFDEF LCLGTK2}
       zgl_InitToHandle( GDK_WINDOW_XID( widget.window ) );
       {$ENDIF}
