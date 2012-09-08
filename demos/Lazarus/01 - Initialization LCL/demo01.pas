@@ -125,9 +125,9 @@ begin
       wnd_ShowCursor( TRUE );
 
     {$IFDEF LINUX}
+      {$IFDEF LCLGTK2}
       widget := GetFixedWidget( PGtkWidget( Panel1.Handle ) );
       gtk_widget_realize( widget );
-      {$IFDEF LCLGTK2}
       zgl_InitToHandle( GDK_WINDOW_XID( widget.window ) );
       {$ENDIF}
     {$ENDIF}
