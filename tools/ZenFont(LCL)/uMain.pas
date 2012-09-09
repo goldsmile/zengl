@@ -331,8 +331,8 @@ begin
 
   if SaveFontDialog.Execute() Then
     begin
-      name := file_GetName( UTF8ToAnsi( SaveFontDialog.FileName ) );
-      dir  := file_GetDirectory( UTF8ToAnsi( SaveFontDialog.FileName ) );
+      name := file_GetName( SaveFontDialog.FileName );
+      dir  := file_GetDirectory( SaveFontDialog.FileName );
       fontgen_SaveFont( fg_Font, dir + name );
     end;
 end;
