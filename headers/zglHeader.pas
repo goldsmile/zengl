@@ -2,8 +2,8 @@
 {-----------= ZenGL =------------}
 {--------------------------------}
 {                                }
-{ version:  0.3.2                }
-{ date:     2012.09.02           }
+{ version:  0.3.3                }
+{ date:     2012.09.09           }
 { license:  GNU LGPL version 3   }
 { homepage: http://zengl.org     }
 {                                }
@@ -1278,10 +1278,9 @@ var
   col2d_PointInTriangle : function( X, Y : Single; const P1, P2, P3 : zglTPoint2D ) : Boolean;
   col2d_PointInCircle   : function( X, Y : Single; const Circle : zglTCircle ) : Boolean;
   // line 2d
-  col2d_Line           : function( const A, B : zglTLine; ColPoint : zglPPoint2D ) : Boolean;
-  col2d_LineVsRect     : function( const Line : zglTLine; const Rect : zglTRect; ColPoint : zglPPoint2D ) : Boolean;
-  col2d_LineVsCircle   : function( const Line : zglTLine; const Circle : zglTCircle ) : Boolean;
-  col2d_LineVsCircleXY : function( const Line : zglTLine; const Circle : zglTCircle; Precision : Byte; ColPoint : zglPPoint2D ) : Boolean;
+  col2d_Line         : function( const A, B : zglTLine; ColPoint : zglPPoint2D ) : Boolean;
+  col2d_LineVsRect   : function( const Line : zglTLine; const Rect : zglTRect ) : Boolean;
+  col2d_LineVsCircle : function( const Line : zglTLine; const Circle : zglTCircle ) : Boolean;
   // rect
   col2d_Rect         : function( const Rect1, Rect2 : zglTRect ) : Boolean;
   col2d_ClipRect     : function( const Rect1, Rect2 : zglTRect ) : zglTRect;
@@ -1839,7 +1838,6 @@ begin
       col2d_Line := dlsym( zglLib, 'col2d_Line' );
       col2d_LineVsRect := dlsym( zglLib, 'col2d_LineVsRect' );
       col2d_LineVsCircle := dlsym( zglLib, 'col2d_LineVsCircle' );
-      col2d_LineVsCircleXY := dlsym( zglLib, 'col2d_LineVsCircleXY' );
       col2d_Rect := dlsym( zglLib, 'col2d_Rect' );
       col2d_ClipRect := dlsym( zglLib, 'col2d_ClipRect' );
       col2d_RectInRect := dlsym( zglLib, 'col2d_RectInRect' );

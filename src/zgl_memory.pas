@@ -168,6 +168,7 @@ end;
 procedure mem_Free( var Memory : zglTMemory );
 begin
   FreeMem( Memory.Memory );
+  Memory.Memory   := nil;
   Memory.Size     := 0;
   Memory.Position := 0;
 end;

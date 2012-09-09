@@ -2,8 +2,8 @@
 /*-----------= ZenGL =------------*/
 /*--------------------------------*/
 /*                                */
-/* version:  0.3.2                */
-/* date:     2012.09.02           */
+/* version:  0.3.3                */
+/* date:     2012.09.09           */
 /* license:  GNU LGPL version 3   */
 /* homepage: http://zengl.org     */
 /*                                */
@@ -1478,9 +1478,8 @@ ZGLEXTERN bool ( *col2d_PointInTriangle )( float X, float Y, zglTPoint2D P1, zgl
 ZGLEXTERN bool ( *col2d_PointInCircle )( float X, float Y, zglTCircle Circle );
 //line 2d
 ZGLEXTERN bool ( *col2d_Line )( zglTLine A, zglTLine B, zglPPoint2D ColPoint );
-ZGLEXTERN bool ( *col2d_LineVsRect )( zglTLine Line, zglTRect Rect, zglPPoint2D ColPoint );
+ZGLEXTERN bool ( *col2d_LineVsRect )( zglTLine Line, zglTRect Rect );
 ZGLEXTERN bool ( *col2d_LineVsCircle )( zglTLine Line, zglTCircle Circle );
-ZGLEXTERN bool ( *col2d_LineVsCircleXY )( zglTLine Line, zglTCircle Circle, byte Precision, zglPPoint2D ColPoint );
 // rect
 ZGLEXTERN bool ( *col2d_Rect )( zglTRect Rect1, zglTRect Rect2 );
 ZGLEXTERN bool ( *col2d_ClipRect )( zglTRect Rect1, zglTRect Rect2 );
@@ -1885,7 +1884,6 @@ bool zglLoad( const char* LibraryName )
     zglGetAddress( col2d_Line, zglLib, "col2d_Line" );
     zglGetAddress( col2d_LineVsRect, zglLib, "col2d_LineVsRect" );
     zglGetAddress( col2d_LineVsCircle, zglLib, "col2d_LineVsCircle" );
-    zglGetAddress( col2d_LineVsCircleXY, zglLib, "col2d_LineVsCircleXY" );
     zglGetAddress( col2d_Rect, zglLib, "col2d_Rect" );
     zglGetAddress( col2d_ClipRect, zglLib, "col2d_ClipRect" );
     zglGetAddress( col2d_RectInRect, zglLib, "col2d_RectInRect" );

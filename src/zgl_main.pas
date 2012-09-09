@@ -45,11 +45,11 @@ uses
   zgl_types;
 
 const
-  cs_ZenGL    = 'ZenGL 0.3.2';
-  cs_Date     = '2012.09.02';
+  cs_ZenGL    = 'ZenGL 0.3.3';
+  cs_Date     = '2012.09.09';
   cv_major    = 0;
   cv_minor    = 3;
-  cv_revision = 1;
+  cv_revision = 3;
 
   // zgl_Reg
   SYS_APP_INIT           = $000001;
