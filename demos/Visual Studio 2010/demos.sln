@@ -19,7 +19,15 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "08 - Sprite Engine", "08 - 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "12 - Render into Texture", "12 - Render into Texture\12 - Render into Texture.vcxproj", "{517392CA-D6EB-474F-B6C5-B9E00251006F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "10 - Tiles", "10 - Tiles\10 - Tiles.vcxproj", "{75EF39D7-ED53-4AB6-9B54-3F933612418D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "11 - Grid", "11 - Grid\11 - Grid.vcxproj", "{E927B330-F955-43D6-A62C-681135268DAA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "13 - Particles", "13 - Particles\13 - Particles.vcxproj", "{3EEEC171-29A9-49E4-BC96-6149274CBD94}"
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "14 - Sound", "14 - Sound\14 - Sound.vcxproj", "{2AF57833-0AEE-45CE-8743-AEB1543E6E66}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "15 - Video", "15 - Video\15 - Video.vcxproj", "{904DB040-5689-4636-8E1B-B4496816B7E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,10 +71,26 @@ Global
 		{517392CA-D6EB-474F-B6C5-B9E00251006F}.Debug|Win32.Build.0 = Debug|Win32
 		{517392CA-D6EB-474F-B6C5-B9E00251006F}.Release|Win32.ActiveCfg = Release|Win32
 		{517392CA-D6EB-474F-B6C5-B9E00251006F}.Release|Win32.Build.0 = Release|Win32
+		{75EF39D7-ED53-4AB6-9B54-3F933612418D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{75EF39D7-ED53-4AB6-9B54-3F933612418D}.Debug|Win32.Build.0 = Debug|Win32
+		{75EF39D7-ED53-4AB6-9B54-3F933612418D}.Release|Win32.ActiveCfg = Release|Win32
+		{75EF39D7-ED53-4AB6-9B54-3F933612418D}.Release|Win32.Build.0 = Release|Win32
+		{E927B330-F955-43D6-A62C-681135268DAA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E927B330-F955-43D6-A62C-681135268DAA}.Debug|Win32.Build.0 = Debug|Win32
+		{E927B330-F955-43D6-A62C-681135268DAA}.Release|Win32.ActiveCfg = Release|Win32
+		{E927B330-F955-43D6-A62C-681135268DAA}.Release|Win32.Build.0 = Release|Win32
+		{3EEEC171-29A9-49E4-BC96-6149274CBD94}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3EEEC171-29A9-49E4-BC96-6149274CBD94}.Debug|Win32.Build.0 = Debug|Win32
+		{3EEEC171-29A9-49E4-BC96-6149274CBD94}.Release|Win32.ActiveCfg = Release|Win32
+		{3EEEC171-29A9-49E4-BC96-6149274CBD94}.Release|Win32.Build.0 = Release|Win32
 		{2AF57833-0AEE-45CE-8743-AEB1543E6E66}.Debug|Win32.ActiveCfg = Debug|Win32
 		{2AF57833-0AEE-45CE-8743-AEB1543E6E66}.Debug|Win32.Build.0 = Debug|Win32
 		{2AF57833-0AEE-45CE-8743-AEB1543E6E66}.Release|Win32.ActiveCfg = Release|Win32
 		{2AF57833-0AEE-45CE-8743-AEB1543E6E66}.Release|Win32.Build.0 = Release|Win32
+		{904DB040-5689-4636-8E1B-B4496816B7E1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{904DB040-5689-4636-8E1B-B4496816B7E1}.Debug|Win32.Build.0 = Debug|Win32
+		{904DB040-5689-4636-8E1B-B4496816B7E1}.Release|Win32.ActiveCfg = Release|Win32
+		{904DB040-5689-4636-8E1B-B4496816B7E1}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -80,6 +80,12 @@ function _video_OpenFile( FileName : PAnsiChar ) : zglPVideoStream;
 function _video_OpenMemory( Memory : zglTMemory; Extension : PAnsiChar ) : zglPVideoStream;
 {$ENDIF}
 
+function _file_Open( out FileHandle : zglTFile; const FileName : PAnsiChar; Mode : Byte ) : Boolean;
+function _file_MakeDir( const Directory : PAnsiChar ) : Boolean;
+function _file_Remove( const Name : PAnsiChar ) : Boolean;
+function _file_Exists( const Name : PAnsiChar ) : Boolean;
+procedure _file_SetPath( const Path : PAnsiChar );
+
 {$IFDEF USE_ZIP}
 function _file_OpenArchive( FileName : PAnsiChar; Password : PAnsiChar = '' ) : Boolean;
 {$ENDIF}
@@ -191,6 +197,31 @@ begin
   Result := video_OpenMemory( Memory, Extension );
 end;
 {$ENDIF}
+
+function _file_Open( out FileHandle : zglTFile; const FileName : PAnsiChar; Mode : Byte ) : Boolean;
+begin
+  Result := file_Open( FileHandle, FileName, Mode );
+end;
+
+function _file_MakeDir( const Directory : PAnsiChar ) : Boolean;
+begin
+  Result := file_MakeDir( Directory );
+end;
+
+function _file_Remove( const Name : PAnsiChar ) : Boolean;
+begin
+  Result := file_Remove( Name );
+end;
+
+function _file_Exists( const Name : PAnsiChar ) : Boolean;
+begin
+  Result := file_Exists( Name );
+end;
+
+procedure _file_SetPath( const Path : PAnsiChar );
+begin
+  file_SetPath( Path );
+end;
 
 {$IFDEF USE_ZIP}
 function _file_OpenArchive( FileName : PAnsiChar; Password : PAnsiChar = '' ) : Boolean;

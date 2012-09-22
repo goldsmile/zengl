@@ -467,10 +467,14 @@ exports
   {$IFDEF USE_VIDEO}
   ,
   _video_OpenFile          name prefix + '_video_OpenFile',
-  _video_OpenMemory        name prefix + '_video_OpenMemory'
+  _video_OpenMemory        name prefix + '_video_OpenMemory',
   {$ENDIF}
+  _file_Open               name prefix + '_file_Open',
+  _file_MakeDir            name prefix + '_file_MakeDir',
+  _file_Remove             name prefix + '_file_Remove',
+  _file_Exists             name prefix + '_file_Exists',
+  _file_SetPath            name prefix + '_file_SetPath',
   {$IFDEF USE_ZIP}
-  ,
   _file_OpenArchive
   {$ENDIF}
   {$ENDIF}

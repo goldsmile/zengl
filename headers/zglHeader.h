@@ -2,8 +2,8 @@
 /*-----------= ZenGL =------------*/
 /*--------------------------------*/
 /*                                */
-/* version:  0.3.3                */
-/* date:     2012.09.09           */
+/* version:  0.3.4                */
+/* date:     2012.09.19           */
 /* license:  GNU LGPL version 3   */
 /* homepage: http://zengl.org     */
 /*                                */
@@ -1148,7 +1148,15 @@ ZGLEXTERN void ( *pengine2d_Set )( zglPPEngine2D PEngine );
 ZGLEXTERN zglPPEngine2D ( *pengine2d_Get )();
 ZGLEXTERN void ( *pengine2d_Draw )();
 ZGLEXTERN void ( *pengine2d_Proc )( double dt );
+#ifdef __CPP__
+ZGLEXTERN void ( *__pengine2d_AddEmitter )( zglPEmitter2D Emitter, zglPPEmitter2D Result, float X, float Y );
+static inline void pengine2d_AddEmitter( zglPEmitter2D Emitter, zglPPEmitter2D Result, float X = 0, float Y = 0 )
+{
+  __pengine2d_AddEmitter( Emitter, Result, X, Y );
+}
+#else
 ZGLEXTERN void ( *pengine2d_AddEmitter )( zglPEmitter2D Emitter, zglPPEmitter2D Result, float X, float Y );
+#endif
 ZGLEXTERN void ( *pengine2d_DelEmitter )( int ID );
 ZGLEXTERN void ( *pengine2d_ClearAll )();
 ZGLEXTERN zglPEmitter2D ( *emitter2d_Add )();
@@ -1792,7 +1800,11 @@ bool zglLoad( const char* LibraryName )
     zglGetAddress( pengine2d_Get, zglLib, "pengine2d_Get" );
     zglGetAddress( pengine2d_Draw, zglLib, "pengine2d_Draw" );
     zglGetAddress( pengine2d_Proc, zglLib, "pengine2d_Proc" );
+#ifdef __CPP__
+	zglGetAddress( __pengine2d_AddEmitter, zglLib, "pengine2d_AddEmitter" );
+#else
     zglGetAddress( pengine2d_AddEmitter, zglLib, "pengine2d_AddEmitter" );
+#endif
     zglGetAddress( pengine2d_DelEmitter, zglLib, "pengine2d_DelEmitter" );
     zglGetAddress( pengine2d_ClearAll, zglLib, "pengine2d_ClearAll" );
     zglGetAddress( emitter2d_Add, zglLib, "emitter2d_Add" );
@@ -1893,10 +1905,10 @@ bool zglLoad( const char* LibraryName )
     zglGetAddress( col2d_CircleInCircle, zglLib, "col2d_CircleInCircle" );
     zglGetAddress( col2d_CircleInRect, zglLib, "col2d_CircleInRect" );
 
-    zglGetAddress( file_Open, zglLib, "file_Open" );
-    zglGetAddress( file_MakeDir, zglLib, "file_MakeDir" );
-    zglGetAddress( file_Remove, zglLib, "file_Remove" );
-    zglGetAddress( file_Exists, zglLib, "file_Exists" );
+    zglGetAddress( file_Open, zglLib, "_file_Open" );
+    zglGetAddress( file_MakeDir, zglLib, "_file_MakeDir" );
+    zglGetAddress( file_Remove, zglLib, "_file_Remove" );
+    zglGetAddress( file_Exists, zglLib, "_file_Exists" );
     zglGetAddress( file_Seek, zglLib, "file_Seek" );
     zglGetAddress( file_GetPos, zglLib, "file_GetPos" );
     zglGetAddress( file_Read, zglLib, "file_Read" );
@@ -1908,7 +1920,7 @@ bool zglLoad( const char* LibraryName )
     zglGetAddress( file_GetName, zglLib, "file_GetName" );
     zglGetAddress( file_GetExtension, zglLib, "file_GetExtension" );
     zglGetAddress( file_GetDirectory, zglLib, "file_GetDirectory" );
-    zglGetAddress( file_SetPath, zglLib, "file_SetPath" );
+    zglGetAddress( file_SetPath, zglLib, "_file_SetPath" );
 
     zglGetAddress( file_OpenArchive, zglLib, "_file_OpenArchive" );
     zglGetAddress( file_CloseArchive, zglLib, "file_CloseArchive" );
