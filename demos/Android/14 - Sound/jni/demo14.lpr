@@ -144,6 +144,31 @@ begin
   touch_ClearState();
 end;
 
+procedure Activate( active : Boolean );
+begin
+  if active Then
+    begin
+      snd_Init();
+
+      file_OpenArchive( PAnsiChar( zgl_Get( DIRECTORY_APPLICATION ) ) );
+      sound := snd_LoadFromFile( dirRes + 'click.wav', 2 );
+      file_CloseArchive();
+    end else
+      snd_Free();
+end;
+
+procedure Restore;
+begin
+  file_OpenArchive( PAnsiChar( zgl_Get( DIRECTORY_APPLICATION ) ) );
+
+  tex_RestoreFromFile( icon[ 0 ], dirRes + 'audio-stop.png' );
+  tex_RestoreFromFile( icon[ 1 ], dirRes + 'audio-play.png' );
+
+  font_RestoreFromFile( fntMain, dirRes + 'font.zfi' );
+
+  file_CloseArchive();
+end;
+
 procedure Java_zengl_android_ZenGL_Main( var env; var thiz ); cdecl;
 begin
   randomize();
@@ -152,6 +177,7 @@ begin
 
   zgl_Reg( SYS_LOAD, @Init );
   zgl_Reg( SYS_DRAW, @Draw );
+  zgl_Reg( SYS_ANDROID_RESTORE, @Restore );
 
   scr_SetOptions( SCREEN_WIDTH, SCREEN_HEIGHT, REFRESH_MAXIMUM, TRUE, TRUE );
 end;

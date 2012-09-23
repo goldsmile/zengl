@@ -77,12 +77,27 @@ begin
   text_Draw( fntMain, 0, 0, 'FPS: ' + u_IntToStr( zgl_Get( RENDER_FPS ) ) );
 end;
 
+procedure Restore;
+begin
+  file_OpenArchive( PAnsiChar( zgl_Get( DIRECTORY_APPLICATION ) ) );
+
+  tex_RestoreFromFile( texTux, dirRes + 'tux_stand.png' );
+
+  font_RestoreFromFile( fntMain, dirRes + 'font.zfi' );
+
+  rtarget_Restore( rtFull );
+  rtarget_Restore( rtDefault );
+
+  file_CloseArchive();
+end;
+
 procedure Java_zengl_android_ZenGL_Main( var env; var thiz ); cdecl;
 begin
   randomize();
 
   zgl_Reg( SYS_LOAD, @Init );
   zgl_Reg( SYS_DRAW, @Draw );
+  zgl_Reg( SYS_ANDROID_RESTORE, @Restore );
 
   scr_SetOptions( 800, 600, REFRESH_MAXIMUM, TRUE, TRUE );
 end;

@@ -201,6 +201,13 @@ begin
   cpSpaceStep( space, 1 / ( 1000 / dt ) );
 end;
 
+procedure Restore;
+begin
+  file_OpenArchive( PAnsiChar( zgl_Get( DIRECTORY_APPLICATION ) ) );
+  font_RestoreFromFile( fntMain, dirRes + 'font.zfi' );
+  file_CloseArchive();
+end;
+
 procedure Quit;
 begin
   // RU: Очистка объектов и "мира".
@@ -218,6 +225,7 @@ begin
   zgl_Reg( SYS_LOAD, @Init );
   zgl_Reg( SYS_DRAW, @Draw );
   zgl_Reg( SYS_UPDATE, @Update );
+  zgl_Reg( SYS_ANDROID_RESTORE, @Restore );
   zgl_Reg( SYS_EXIT, @Quit );
 
   scr_SetOptions( 800, 600, REFRESH_MAXIMUM, TRUE, TRUE );

@@ -116,6 +116,21 @@ begin
   pengine2d_Proc( dt );
 end;
 
+procedure Restore;
+begin
+  file_OpenArchive( PAnsiChar( zgl_Get( DIRECTORY_APPLICATION ) ) );
+
+  tex_RestoreFromFile( texBack, dirRes + 'back02.png' );
+
+  font_RestoreFromFile( fntMain, dirRes + 'font.zfi' );
+
+  // RU: Использовать данную функцию возможно только если все эмиттеры были загружены посредством emitter2d_LoadFromFile и текстуры не были подгружены вручную.
+  // EN: You can use this method only if emitters were loaded via emitter2d_LoadFromFile without manual loading of textures.
+  emitter2d_RestoreAll();
+
+  file_CloseArchive();
+end;
+
 procedure Quit;
 begin
   // RU: Очищаем память от созданных эмиттеров.
@@ -133,6 +148,7 @@ begin
   zgl_Reg( SYS_LOAD, @Init );
   zgl_Reg( SYS_DRAW, @Draw );
   zgl_Reg( SYS_UPDATE, @Update );
+  zgl_Reg( SYS_ANDROID_RESTORE, @Restore );
   zgl_Reg( SYS_EXIT, @Quit );
 
   scr_SetOptions( 800, 600, REFRESH_MAXIMUM, TRUE, TRUE );

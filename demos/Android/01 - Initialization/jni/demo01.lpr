@@ -40,6 +40,12 @@ begin
   //
 end;
 
+procedure Restore;
+begin
+  // RU: Восстановление ресурсов нужно реализовывать тут.
+  // EN: Restoring of resources should be implemented here.
+end;
+
 procedure Java_zengl_android_ZenGL_Main( var env; var thiz ); cdecl;
 begin
   // RU: Для загрузки/создания каких-то своих настроек/профилей/etc. можно получить путь к домашенему каталогу пользователя, или к исполняемому файлу(не работает для GNU/Linux).
@@ -62,6 +68,9 @@ begin
   // RU: Регистрируем процедуру, которая будет принимать разницу времени между кадрами.
   // EN: Register the procedure, that will get delta time between the frames.
   zgl_Reg( SYS_UPDATE, @Update );
+  // RU: Очень важная для Android функция, которая вызывается при возврате фокуса приложению если необходимо восстановить ресурсы.
+  // EN: Very important function for Android, which will be called every time when application gets the focus and resources need to restore.
+  zgl_Reg( SYS_ANDROID_RESTORE, @Restore );
 
   // RU: Указываем первоначальные настройки.
   // EN: Set screen options.

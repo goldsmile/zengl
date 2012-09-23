@@ -33,6 +33,7 @@ uses
   {$IFDEF MACOSX}
   MacOSAll,
   {$ENDIF}
+  zgl_types,
   {$IFNDEF USE_GLES}
   zgl_opengl,
   zgl_opengl_all,
@@ -79,6 +80,9 @@ function  rtarget_Add( Surface : zglPTexture; Flags : Byte ) : zglPRenderTarget;
 procedure rtarget_Del( var Target : zglPRenderTarget );
 procedure rtarget_Set( Target : zglPRenderTarget );
 procedure rtarget_DrawIn( Target : zglPRenderTarget; RenderCallback : zglTRenderCallback; Data : Pointer );
+{$IFDEF ANDROID}
+procedure rtarget_Restore( var Target : zglPRenderTarget );
+{$ENDIF}
 
 var
   managerRTarget : zglTRenderTargetManager;
@@ -722,5 +726,29 @@ begin
         glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
       end;
 end;
+
+{$IFDEF ANDROID}
+procedure rtarget_Restore( var Target : zglPRenderTarget );
+  var
+    rt    : zglPRenderTarget;
+    pData : PByteArray;
+begin
+  zgl_GetMem( pData, Round( Target.Surface.Width / Target.Surface.U ) * Round( Target.Surface.Height / Target.Surface.V ) * 4 );
+  tex_CreateGL( Target.Surface^, pData );
+  zgl_FreeMem( pData );
+
+  rt := rtarget_Add( Target.Surface, Target.Flags );
+  FreeMem( Target.Handle );
+  Target.Handle := rt.Handle;
+
+  if Assigned( rt.prev ) Then
+    rt.prev.next := rt.next;
+  if Assigned( rt.next ) Then
+    rt.next.prev := rt.prev;
+  FreeMem( rt );
+
+  DEC( managerRTarget.Count );
+end;
+{$ENDIF}
 
 end.

@@ -107,6 +107,10 @@ function  tex_Create( var Data : PByteArray; Width, Height : Word; Format : Word
 function  tex_CreateZero( Width, Height : Word; Color : LongWord = $000000; Flags : LongWord = TEX_DEFAULT_2D ) : zglPTexture;
 function  tex_LoadFromFile( const FileName : UTF8String; TransparentColor : LongWord = TEX_NO_COLORKEY; Flags : LongWord = TEX_DEFAULT_2D ) : zglPTexture;
 function  tex_LoadFromMemory( const Memory : zglTMemory; const Extension : UTF8String; TransparentColor : LongWord = TEX_NO_COLORKEY; Flags : LongWord = TEX_DEFAULT_2D ) : zglPTexture;
+{$IFDEF ANDROID}
+procedure tex_RestoreFromFile( var Texture : zglPTexture; const FileName : UTF8String; TransparentColor : LongWord = TEX_NO_COLORKEY; Flags : LongWord = TEX_DEFAULT_2D );
+procedure tex_RestoreFromMemory( var Texture : zglPTexture; const Memory : zglTMemory; const Extension : UTF8String; TransparentColor : LongWord = TEX_NO_COLORKEY; Flags : LongWord = TEX_DEFAULT_2D );
+{$ENDIF}
 procedure tex_SetFrameSize( var Texture : zglPTexture; FrameWidth, FrameHeight : Word );
 procedure tex_SetMask( var Texture : zglPTexture; Mask : zglPTexture );
 procedure tex_CalcTexCoords( var Texture : zglTTexture; FramesX : Integer = 1; FramesY : Integer = 1 );
@@ -345,7 +349,7 @@ begin
       exit;
     end;
 
-  if Format = TEX_FORMAT_RGBA Then
+  if format = TEX_FORMAT_RGBA Then
     begin
       if Flags and TEX_CALCULATE_ALPHA > 0 Then
         begin
@@ -395,7 +399,7 @@ begin
       exit;
     end;
 
-  if Format = TEX_FORMAT_RGBA Then
+  if format = TEX_FORMAT_RGBA Then
     begin
       if Flags and TEX_CALCULATE_ALPHA > 0 Then
         begin
@@ -408,6 +412,115 @@ begin
 
   FreeMem( pData );
 end;
+
+{$IFDEF ANDROID}
+procedure tex_RestoreFromFile( var Texture : zglPTexture; const FileName : UTF8String; TransparentColor : LongWord = TEX_NO_COLORKEY; Flags : LongWord = TEX_DEFAULT_2D );
+  var
+    i      : Integer;
+    ext    : UTF8String;
+    pData  : PByteArray;
+    w, h   : Word;
+    format : Word;
+    res    : zglTTextureResource;
+begin
+  pData  := nil;
+
+  if ( not resUseThreaded ) and ( not file_Exists( FileName ) ) Then
+    begin
+      Texture.ID := managerZeroTexture.ID;
+      log_Add( 'Cannot read "' + FileName + '"' );
+      exit;
+    end;
+
+  ext := u_StrUp( file_GetExtension( FileName ) );
+  for i := managerTexture.Count.Formats - 1 downto 0 do
+    if ext = managerTexture.Formats[ i ].Extension Then
+      if resUseThreaded Then
+        begin
+          res.FileName         := FileName;
+          res.Texture          := Texture;
+          res.FileLoader       := managerTexture.Formats[ i ].FileLoader;
+          res.TransparentColor := TransparentColor;
+          res.Flags            := Flags;
+          res_AddToQueue( RES_TEXTURE_RESTORE, TRUE, @res );
+          exit;
+        end else
+          managerTexture.Formats[ i ].FileLoader( FileName, pData, w, h, format );
+
+  if not Assigned( pData ) Then
+    begin
+      Texture.ID := managerZeroTexture.ID;
+      log_Add( 'Unable to restore texture: "' + FileName + '"' );
+      exit;
+    end;
+
+  if format = TEX_FORMAT_RGBA Then
+    begin
+      if Flags and TEX_CALCULATE_ALPHA > 0 Then
+        begin
+          tex_CalcTransparent( pData, TransparentColor, w, h );
+          tex_CalcAlpha( pData, w, h );
+        end else
+          tex_CalcTransparent( pData, TransparentColor, w, h );
+    end;
+  Texture.Flags := Flags;
+  tex_CalcFlags( Texture^, pData );
+  tex_CreateGL( Texture^, pData );
+
+  log_Add( 'Texture restored: "' + FileName + '"' );
+
+  FreeMem( pData );
+end;
+
+procedure tex_RestoreFromMemory( var Texture : zglPTexture; const Memory : zglTMemory; const Extension : UTF8String; TransparentColor : LongWord = TEX_NO_COLORKEY; Flags : LongWord = TEX_DEFAULT_2D );
+  var
+    i      : Integer;
+    ext    : UTF8String;
+    pData  : PByteArray;
+    w, h   : Word;
+    format : Word;
+    res    : zglTTextureResource;
+begin
+  pData  := nil;
+
+  ext := u_StrUp( Extension );
+  for i := managerTexture.Count.Formats - 1 downto 0 do
+    if ext = managerTexture.Formats[ i ].Extension Then
+      if resUseThreaded Then
+        begin
+          res.Memory           := Memory;
+          res.Texture          := Texture;
+          res.MemLoader        := managerTexture.Formats[ i ].MemLoader;
+          res.TransparentColor := TransparentColor;
+          res.Flags            := Flags;
+          res_AddToQueue( RES_TEXTURE_RESTORE, FALSE, @res );
+          exit;
+        end else
+          managerTexture.Formats[ i ].MemLoader( Memory, pData, w, h, format );
+
+  if not Assigned( pData ) Then
+    begin
+      Texture.ID := managerZeroTexture.ID;
+      log_Add( 'Unable to restore texture: From Memory' );
+      exit;
+    end;
+
+  if format = TEX_FORMAT_RGBA Then
+    begin
+      if Flags and TEX_CALCULATE_ALPHA > 0 Then
+        begin
+          tex_CalcTransparent( pData, TransparentColor, w, h );
+          tex_CalcAlpha( pData, w, h );
+        end else
+          tex_CalcTransparent( pData, TransparentColor, w, h );
+    end;
+  Texture.Flags := Flags;
+  tex_CalcFlags( Texture^, pData );
+  tex_CreateGL( Texture^, pData );
+
+  FreeMem( pData );
+end;
+{$ENDIF}
 
 procedure tex_SetFrameSize( var Texture : zglPTexture; FrameWidth, FrameHeight : Word );
   var

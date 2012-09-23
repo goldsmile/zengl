@@ -3,7 +3,7 @@
 /*--------------------------------*/
 /*                                */
 /* version:  0.3.4                */
-/* date:     2012.09.19           */
+/* date:     2012.09.23           */
 /* license:  GNU LGPL version 3   */
 /* homepage: http://zengl.org     */
 /*                                */
@@ -1142,7 +1142,7 @@ typedef struct zglTPEngine2D
 
   zglPEmitter2D *List;
   zglPPEmitter2D *ListU;
-} *zglPPEngine2D;
+} zglTPEngine2D, *zglPPEngine2D;
 
 ZGLEXTERN void ( *pengine2d_Set )( zglPPEngine2D PEngine );
 ZGLEXTERN zglPPEngine2D ( *pengine2d_Get )();

@@ -88,6 +88,15 @@ begin
     video_Update( video, dt, TRUE );
 end;
 
+procedure Restore;
+begin
+  file_OpenArchive( PAnsiChar( zgl_Get( DIRECTORY_APPLICATION ) ) );
+  font_RestoreFromFile( fntMain, dirRes + 'font.zfi' );
+  file_CloseArchive();
+
+  video_Restore( video );
+end;
+
 procedure Java_zengl_android_ZenGL_Main( var env; var thiz ); cdecl;
 begin
   randomize();
@@ -97,6 +106,7 @@ begin
   zgl_Reg( SYS_LOAD, @Init );
   zgl_Reg( SYS_DRAW, @Draw );
   zgl_Reg( SYS_UPDATE, @Update );
+  zgl_Reg( SYS_ANDROID_RESTORE, @Restore );
 
   scr_SetOptions( 800, 600, REFRESH_MAXIMUM, TRUE, TRUE );
 end;

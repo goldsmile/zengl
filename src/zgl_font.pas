@@ -73,6 +73,9 @@ procedure font_Del( var Font : zglPFont );
 
 function font_LoadFromFile( const FileName : UTF8String ) : zglPFont;
 function font_LoadFromMemory( const Memory : zglTMemory ) : zglPFont;
+{$IFDEF ANDROID}
+procedure font_RestoreFromFile( var Font : zglPFont; const FileName : UTF8String );
+{$ENDIF}
 
 procedure font_Load( var fnt : zglPFont; var fntMem : zglTMemory );
 
@@ -193,6 +196,45 @@ begin
   if not Assigned( Result ) Then
     log_Add( 'Unable to load font: From Memory' );
 end;
+
+{$IFDEF ANDROID}
+procedure font_RestoreFromFile( var Font : zglPFont; const FileName : UTF8String );
+  var
+    fntMem : zglTMemory;
+    i, j   : Integer;
+    dir    : UTF8String;
+    name   : UTF8String;
+    tmp    : UTF8String;
+    res    : zglTFontResource;
+begin
+  if resUseThreaded Then
+    begin
+      res.FileName := FileName;
+      res.Font     := Font;
+      res_AddToQueue( RES_FONT_RESTORE, TRUE, @res );
+      exit;
+    end;
+
+  if not file_Exists( FileName ) Then
+    begin
+      log_Add( 'Cannot read "' + FileName + '"' );
+      exit;
+    end;
+
+  dir  := file_GetDirectory( FileName );
+  name := file_GetName( FileName );
+  for i := 0 to Font.Count.Pages - 1 do
+    for j := managerTexture.Count.Formats - 1 downto 0 do
+      begin
+        tmp := dir + name + '-page' + u_IntToStr( i ) + '.' + u_StrDown( managerTexture.Formats[ j ].Extension );
+        if file_Exists( tmp ) Then
+          begin
+            tex_RestoreFromFile( Font.Pages[ i ], tmp, TEX_NO_COLORKEY, TEX_DEFAULT_2D );
+            break;
+          end;
+      end;
+end;
+{$ENDIF}
 
 procedure font_Load( var fnt : zglPFont; var fntMem : zglTMemory );
   var

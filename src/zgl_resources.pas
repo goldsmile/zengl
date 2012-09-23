@@ -45,8 +45,14 @@ const
   RES_TEXTURE_FRAMESIZE = $000002;
   RES_TEXTURE_MASK      = $000003;
   RES_TEXTURE_DELETE    = $000004;
+  {$IFDEF ANDROID}
+  RES_TEXTURE_RESTORE   = $000009;
+  {$ENDIF}
   RES_FONT              = $000010;
   RES_FONT_DELETE       = $000011;
+  {$IFDEF ANDROID}
+  RES_FONT_RESTORE      = $000019;
+  {$ENDIF}
   RES_SOUND             = $000020;
   RES_SOUND_DELETE      = $000021;
   RES_ZIP_OPEN          = $000030;
@@ -176,10 +182,10 @@ begin
     Item.next.prev := Item.prev;
 
   case Item.Type_ of
-    RES_TEXTURE:
+    RES_TEXTURE {$IFDEF ANDROID}, RES_TEXTURE_RESTORE {$ENDIF}:
       if Assigned( Item.Resource ) Then
         zglPTextureResource( Item.Resource ).FileName := '';
-    RES_FONT:
+    RES_FONT {$IFDEF ANDROID}, RES_FONT_RESTORE {$ENDIF}:
       if Assigned( Item.Resource ) Then
         zglPFontResource( Item.Resource ).FileName := '';
     {$IFDEF USE_SOUND}
@@ -247,12 +253,17 @@ begin
           begin
             if ( item.Ready ) and Assigned( item.Resource ) Then
               case item.Type_ of
-                RES_TEXTURE:
+                RES_TEXTURE {$IFDEF ANDROID}, RES_TEXTURE_RESTORE {$ENDIF}:
                   with zglPTextureResource( item.Resource )^ do
                     begin
                       tex_CreateGL( Texture^, pData );
                       FreeMem( pData );
                       if item.IsFromFile Then
+                      {$IFDEF ANDROID}
+                        if item.Type_ = RES_TEXTURE_RESTORE Then
+                          log_Add( 'Texture restored: "' + FileName + '"' )
+                        else
+                      {$ENDIF}
                         log_Add( 'Texture loaded: "' + FileName + '"' );
 
                       FileName := '';
@@ -273,7 +284,7 @@ begin
                       DEC( resQueueSize[ id ] );
                       break;
                     end;
-                RES_FONT:
+                RES_FONT {$IFDEF ANDROID}, RES_FONT_RESTORE {$ENDIF}:
                   with zglPFontResource( item.Resource )^ do
                     if item.Prepared Then
                       begin
@@ -305,7 +316,7 @@ begin
                       thread_EventSet( resQueueState[ id ] );
                       break;
                     end;
-                RES_FONT:
+                RES_FONT {$IFDEF ANDROID}, RES_FONT_RESTORE {$ENDIF}:
                   if item.Ready Then
                     with zglPFontResource( item.Resource )^ do
                       begin
@@ -371,7 +382,7 @@ begin
   zgl_GetMem( Pointer( item^ ), SizeOf( zglTResourceItem ) );
 
   case Type_ of
-    RES_TEXTURE:
+    RES_TEXTURE {$IFDEF ANDROID}, RES_TEXTURE_RESTORE {$ENDIF}:
       begin
         zgl_GetMem( Pointer( tex ), SizeOf( zglTTextureResource ) );
         with zglPTextureResource( Resource )^ do
@@ -410,7 +421,7 @@ begin
     RES_TEXTURE_DELETE:
       begin
       end;
-    RES_FONT:
+    RES_FONT {$IFDEF ANDROID}, RES_FONT_RESTORE {$ENDIF}:
       begin
         zgl_GetMem( Pointer( fnt ), SizeOf( zglTFontResource ) );
         with zglPFontResource( Resource )^ do
@@ -495,7 +506,7 @@ begin
         begin
           if ( not item.Ready ) and Assigned( item.Resource ) Then
             case item.Type_ of
-              RES_TEXTURE:
+              RES_TEXTURE {$IFDEF ANDROID}, RES_TEXTURE_RESTORE {$ENDIF}:
                 with item^, zglPTextureResource( Resource )^ do
                   begin
                     if IsFromFile Then
@@ -512,6 +523,11 @@ begin
 
                     if not Assigned( pData ) Then
                       begin
+                        {$IFDEF ANDROID}
+                        if item.Type_ = RES_TEXTURE_RESTORE Then
+                          log_Add( 'Unable to restore texture: "' + FileName + '"' )
+                        else
+                        {$ENDIF}
                         log_Add( 'Unable to load texture: "' + FileName + '"' );
 
                         // FIXME: Temporary solution, change in future
@@ -586,7 +602,7 @@ begin
 
                       Ready := TRUE;
                     end;
-              RES_FONT:
+              RES_FONT {$IFDEF ANDROID}, RES_FONT_RESTORE {$ENDIF}:
                 with item^, zglPFontResource( Resource )^ do
                   begin
                     if not Prepared Then
@@ -621,6 +637,11 @@ begin
                                       if file_Exists( tmp ) Then
                                         begin
                                           managerTexture.Formats[ j ].FileLoader( tmp, pData[ i ], Width[ i ], Height[ i ], Format[ i ] );
+                                          {$IFDEF ANDROID}
+                                          if item.Type_ = RES_FONT_RESTORE Then
+                                            log_Add( 'Texture restored: "' + tmp + '"'  )
+                                          else
+                                          {$ENDIF}
                                           log_Add( 'Texture loaded: "' + tmp + '"'  );
                                           break;
                                         end;
@@ -630,6 +651,11 @@ begin
                             Ready := TRUE;
                           end else
                             begin
+                              {$IFDEF ANDROID}
+                              if item.Type_ = RES_FONT_RESTORE Then
+                                log_Add( 'Unable to restore font: "' + FileName + '"' )
+                              else
+                              {$ENDIF}
                               log_Add( 'Unable to load font: "' + FileName + '"' );
 
                               FileName := '';

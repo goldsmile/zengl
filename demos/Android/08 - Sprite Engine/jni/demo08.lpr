@@ -196,6 +196,18 @@ begin
   touch_ClearState();
 end;
 
+procedure Restore;
+begin
+  file_OpenArchive( PAnsiChar( zgl_Get( DIRECTORY_APPLICATION ) ) );
+
+  tex_RestoreFromFile( texLogo, dirRes + 'zengl.png' );
+  tex_RestoreFromFile( texMiku, dirRes + 'miku.png' );
+
+  font_RestoreFromFile( fntMain, dirRes + 'font.zfi' );
+
+  file_CloseArchive();
+end;
+
 procedure Quit;
 begin
   // RU: Очищаем память от созданных спрайтов.
@@ -213,6 +225,7 @@ begin
 
   zgl_Reg( SYS_LOAD, @Init );
   zgl_Reg( SYS_DRAW, @Draw );
+  zgl_Reg( SYS_ANDROID_RESTORE, @Restore );
   zgl_Reg( SYS_EXIT, @Quit );
 
   scr_SetOptions( 800, 600, REFRESH_MAXIMUM, TRUE, TRUE );

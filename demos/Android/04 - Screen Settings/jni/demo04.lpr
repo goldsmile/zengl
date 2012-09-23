@@ -94,12 +94,21 @@ begin
   touch_ClearState();
 end;
 
+procedure Restore;
+begin
+  file_OpenArchive( PAnsiChar( zgl_Get( DIRECTORY_APPLICATION ) ) );
+  font_RestoreFromFile( fntMain, dirRes + 'font.zfi' );
+  tex_RestoreFromFile( texBack, dirRes + 'back03.jpg' );
+  file_CloseArchive();
+end;
+
 procedure Java_zengl_android_ZenGL_Main( var env; var thiz ); cdecl;
 begin
   timer_Add( @Timer, 16 );
 
   zgl_Reg( SYS_LOAD, @Init );
   zgl_Reg( SYS_DRAW, @Draw );
+  zgl_Reg( SYS_ANDROID_RESTORE, @Restore );
 
   scr_SetOptions( 800, 600, REFRESH_MAXIMUM, TRUE, TRUE );
 end;

@@ -47,7 +47,7 @@ var
   fntMain  : zglPFont;
   //
   texLogo  : zglPTexture;
-  texTest  : zglPTexture;
+  texTest  : array[ 0..3 ] of zglPTexture;
   //
   sndClick : zglPSound;
   sndMusic : zglPSound;
@@ -69,7 +69,7 @@ begin
   // RU: Более детальное рассмотрение параметров функций загрузки ресурсов есть в соответствующих примерах, тут же показана лишь основная суть.
   // EN: Description with more details about parameters of functions can be found in other demos, here is only main idea shown.
 
-  //snd_Init();
+  snd_Init();
 
   // RU: Основное отличие приложений Android от других заключается в том, что все ресурсы хранятся зачастую хранятся внутри apk-файла(обычный zip-архив).
   //     Поэтому перед загрузкой любых ресурсов необходимо сначала "открыть" этот apk-файл, а потом "закрыть".
@@ -99,7 +99,7 @@ begin
   //     Just for holding loading screen resources will be loaded multiple times, and texture will be post-processed with delay.
   zgl_Reg( TEX_CURRENT_EFFECT, @TextureCalcEffect );
   for i := 0 to 3 do
-      texTest  := tex_LoadFromFile( dirRes + 'back01.jpg', TEX_NO_COLORKEY, TEX_DEFAULT_2D or TEX_CUSTOM_EFFECT );
+    texTest[ i ]  := tex_LoadFromFile( dirRes + 'back01.jpg', TEX_NO_COLORKEY, TEX_DEFAULT_2D or TEX_CUSTOM_EFFECT );
   file_CloseArchive();
   res_EndQueue();
 end;
@@ -115,15 +115,56 @@ begin
       exit;
     end;
 
-  ssprite2d_Draw( texTest, 0, 0, 800, 600, 0 );
+  ssprite2d_Draw( texTest[ 0 ], 0, 0, 800, 600, 0 );
   text_Draw( fntMain, 0, 0, 'FPS: ' + u_IntToStr( zgl_Get( RENDER_FPS ) ) );
   text_Draw( fntMain, 0, 16, 'VRAM Used: ' + u_FloatToStr( zgl_Get( RENDER_VRAM_USED ) / 1024 / 1024 ) + 'Mb' );
+end;
+
+procedure Activate( active : Boolean );
+begin
+  // RU: Из-за проблемы в OpenAL на платформе Android(в фоном режиме приложение продолжает грузить CPU), звуковую подсистему
+  //     необходимо останавливать и перезапускать, но только при потере/получении фокуса приложением.
+  // EN: Because of problem inside OpenAL on Android(application continue load CPU in background), sound susbsytem should be
+  //     stopped and reloaded when application loses/gets the focus.
+
+  if active Then
+    begin
+      // RU: Перезапускаем звуковую подсистему.
+      // EN: Reload sound subsystem.
+      snd_Init();
+
+      file_OpenArchive( PAnsiChar( zgl_Get( DIRECTORY_APPLICATION ) ) );
+      sndClick := snd_LoadFromFile( dirRes + 'click.wav' );
+      file_CloseArchive();
+    end else
+      snd_Free();
+end;
+
+procedure Restore;
+  var
+    i : Integer;
+begin
+  file_OpenArchive( PAnsiChar( zgl_Get( DIRECTORY_APPLICATION ) ) );
+
+  font_RestoreFromFile( fntMain, dirRes + 'font.zfi' );
+  tex_RestoreFromFile( texLogo, dirRes + 'zengl.png' );
+
+  file_CloseArchive();
+
+  res_BeginQueue( 0 );
+  file_OpenArchive( PAnsiChar( zgl_Get( DIRECTORY_APPLICATION ) ) );
+  for i := 0 to 3 do
+    tex_RestoreFromFile( texTest[ i ], dirRes + 'back01.jpg' );
+  file_CloseArchive();
+  res_EndQueue();
 end;
 
 procedure Java_zengl_android_ZenGL_Main( var env; var thiz ); cdecl;
 begin
   zgl_Reg( SYS_LOAD, @Init );
   zgl_Reg( SYS_DRAW, @Draw );
+  zgl_Reg( SYS_ACTIVATE, @Activate );
+  zgl_Reg( SYS_ANDROID_RESTORE, @Restore );
 
   scr_SetOptions( 800, 600, REFRESH_MAXIMUM, TRUE, TRUE );
 end;

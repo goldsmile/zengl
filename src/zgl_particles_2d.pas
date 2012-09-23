@@ -248,6 +248,9 @@ procedure emitter2d_Del( var Emitter : zglPEmitter2D );
 function  emitter2d_Load( const FileName : UTF8String ) : zglPEmitter2D;
 function  emitter2d_LoadFromFile( const FileName : UTF8String ) : zglPEmitter2D;
 function  emitter2d_LoadFromMemory( const Memory : zglTMemory ) : zglPEmitter2D;
+{$IFDEF ANDROID}
+procedure emitter2d_RestoreAll;
+{$ENDIF}
 procedure emitter2d_SaveToFile( Emitter : zglPEmitter2D; const FileName : UTF8String );
 procedure emitter2d_Init( Emitter : zglPEmitter2D );
 procedure emitter2d_Free( var Emitter : zglPEmitter2D );
@@ -844,6 +847,37 @@ begin
     end else
       Result := emitter2d_Load( '' );
 end;
+
+{$IFDEF ANDROID}
+procedure emitter2d_RestoreAll;
+  var
+    i, j          : Integer;
+    restored      : array of zglPTexture;
+    restoredCount : Integer;
+    restore       : Boolean;
+begin
+  SetLength( restored, managerEmitter2D.Count );
+  FillChar( restored[ 0 ], SizeOf( zglPTexture ) * managerEmitter2D.Count, 0 );
+  restoredCount := 0;
+
+  for i := 0 to managerEmitter2D.Count - 1 do
+    begin
+      restore := TRUE;
+      for j := 0 to restoredCount - 1 do
+        if managerEmitter2D.List[ i ]._private.texHash = managerEmitter2D.List[ j ]._private.texHash Then
+          begin
+            restore := FALSE;
+            break;
+          end;
+
+      if restore Then
+        begin
+          tex_RestoreFromFile( managerEmitter2D.List[ i ].ParParams.Texture, managerEmitter2D.List[ i ]._private.texFile );
+          INC( restoredCount );
+        end;
+    end;
+end;
+{$ENDIF}
 
 procedure emitter2d_SaveToFile( Emitter : zglPEmitter2D; const FileName : UTF8String );
   var

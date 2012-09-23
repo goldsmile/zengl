@@ -1608,6 +1608,7 @@ begin
 
   if appInitialized Then
     begin
+      oglVRAMUsed := 0;
       gl_ResetState();
       if Assigned( app_PRestore ) Then
         app_PRestore();
@@ -1780,6 +1781,9 @@ end;
 
 procedure Java_zengl_android_ZenGL_zglNativeInputText( env : PJNIEnv; thiz : jobject; text : jstring );
 begin
+  appEnv    := env;
+  appObject := thiz;
+
   key_InputText( appEnv^.GetStringUTFChars( appEnv, text, nil ) );
 end;
 
