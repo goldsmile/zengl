@@ -328,7 +328,11 @@ begin
                                     utf8_GetNSString( 'kEAGLDrawablePropertyColorFormat' ),
                                     nil ) );
   wndViewCtrl.setView( eglView );
-  wndHandle.addSubview( eglView );
+  // Apple, fuck you!
+  if UIDevice.currentDevice.systemVersion.floatValue() >= 6.0 Then
+    wndHandle.setRootViewController( wndViewCtrl )
+  else
+    wndHandle.addSubview( eglView );
 
   eglContext := EAGLContext.alloc().initWithAPI( kEAGLRenderingAPIOpenGLES1 );
   EAGLContext.setCurrentContext( eglContext );

@@ -25,12 +25,12 @@ all:
 	make -C $(DEMO07)
 	make -C $(DEMO08)
 #	make -C $(DEMO09)
-#	make -C $(DEMO10)
+	make -C $(DEMO10)
 	make -C $(DEMO11)
 	make -C $(DEMO12)
-#	make -C $(DEMO13)
+	make -C $(DEMO13)
 	make -C $(DEMO14)
-#	make -C $(DEMO15)
+	make -C $(DEMO15)
 #	make -C $(DEMO16)
 
 linux32:
@@ -43,12 +43,12 @@ linux32:
 	make -C $(DEMO07) linux32
 	make -C $(DEMO08) linux32
 #	make -C $(DEMO09) linux32
-#	make -C $(DEMO10) linux32
+	make -C $(DEMO10) linux32
 	make -C $(DEMO11) linux32
 	make -C $(DEMO12) linux32
-#	make -C $(DEMO13) linux32
+	make -C $(DEMO13) linux32
 	make -C $(DEMO14) linux32
-#	make -C $(DEMO15) linux32
+	make -C $(DEMO15) linux32
 #	make -C $(DEMO16) linux32
 
 win32:
@@ -61,12 +61,12 @@ win32:
 	make -C $(DEMO07) win32
 	make -C $(DEMO08) win32
 #	make -C $(DEMO09) win32
-#	make -C $(DEMO10) win32
+	make -C $(DEMO10) win32
 	make -C $(DEMO11) win32
 	make -C $(DEMO12) win32
-#	make -C $(DEMO13) win32
+	make -C $(DEMO13) win32
 	make -C $(DEMO14) win32
-#	make -C $(DEMO15) win32
+	make -C $(DEMO15) win32
 #	make -C $(DEMO16) win32
 
 win64:
@@ -79,12 +79,12 @@ win64:
 	make -C $(DEMO07) win64
 	make -C $(DEMO08) win64
 #	make -C $(DEMO09) win64
-#	make -C $(DEMO10) win64
+	make -C $(DEMO10) win64
 	make -C $(DEMO11) win64
 	make -C $(DEMO12) win64
-#	make -C $(DEMO13) win64
+	make -C $(DEMO13) win64
 	make -C $(DEMO14) win64
-#	make -C $(DEMO15) win64
+	make -C $(DEMO15) win64
 #	make -C $(DEMO16) win64
 
 macosx:
@@ -97,12 +97,12 @@ macosx:
 	make -C $(DEMO07) macosx
 	make -C $(DEMO08) macosx
 #	make -C $(DEMO09) macosx
-#	make -C $(DEMO10) macosx
+	make -C $(DEMO10) macosx
 	make -C $(DEMO11) macosx
 	make -C $(DEMO12) macosx
-#	make -C $(DEMO13) macosx
+	make -C $(DEMO13) macosx
 	make -C $(DEMO14) macosx
-#	make -C $(DEMO15) macosx
+	make -C $(DEMO15) macosx
 #	make -C $(DEMO16) macosx
 
 macosx_uni:
@@ -115,12 +115,12 @@ macosx_uni:
 	make -C $(DEMO07) macosx_uni
 	make -C $(DEMO08) macosx_uni
 #	make -C $(DEMO09) macosx_uni
-#	make -C $(DEMO10) macosx_uni
+	make -C $(DEMO10) macosx_uni
 	make -C $(DEMO11) macosx_uni
 	make -C $(DEMO12) macosx_uni
-#	make -C $(DEMO13) macosx_uni
+	make -C $(DEMO13) macosx_uni
 	make -C $(DEMO14) macosx_uni
-#	make -C $(DEMO15) macosx_uni
+	make -C $(DEMO15) macosx_uni
 #	make -C $(DEMO16) macosx_uni
 
 clean:
@@ -133,10 +133,10 @@ clean:
 	make -C $(DEMO07) clean
 	make -C $(DEMO08) clean
 #	make -C $(DEMO09) clean
-#	make -C $(DEMO10) clean
+	make -C $(DEMO10) clean
 	make -C $(DEMO11) clean
 	make -C $(DEMO12) clean
-#	make -C $(DEMO13) clean
+	make -C $(DEMO13) clean
 	make -C $(DEMO14) clean
-#	make -C $(DEMO15) clean
+	make -C $(DEMO15) clean
 #	make -C $(DEMO16) clean
