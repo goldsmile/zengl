@@ -274,7 +274,8 @@ begin
   appWork := TRUE;
 
   {$IF DEFINED(WINDOWS) or DEFINED(LINUX) or DEFINED(MACOSX)}
-  scr_SetOptions( wndWidth, wndHeight, scrRefresh, wndFullScreen, scrVSync );
+  if wndFullScreen Then
+    scr_SetOptions( wndWidth, wndHeight, scrRefresh, wndFullScreen, scrVSync );
   {$IFEND}
   {$IFDEF iOS}
   key_BeginReadText( '' );
