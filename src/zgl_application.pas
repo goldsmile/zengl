@@ -87,6 +87,7 @@ type
     function shouldAutorotateToInterfaceOrientation( interfaceOrientation : UIInterfaceOrientation ) : Boolean; override;
     procedure didRotateFromInterfaceOrientation( fromInterfaceOrientation : UIInterfaceOrientation ); override;
     function supportedInterfaceOrientations : LongWord; message 'supportedInterfaceOrientations';
+    function shouldAutorotate : Boolean; message 'shouldAutorotate';
   end;
 
 type
@@ -1329,6 +1330,11 @@ function zglCiOSViewController.supportedInterfaceOrientations : LongWord;
 begin
   Result := ( 1 shl UIInterfaceOrientationPortrait + 1 shl UIInterfaceOrientationPortraitUpsideDown ) * Byte( scrCanPortrait ) +
             ( 1 shl UIInterfaceOrientationLandscapeLeft + 1 shl UIInterfaceOrientationLandscapeRight ) * Byte( scrCanLandscape );
+end;
+
+function zglCiOSViewController.shouldAutorotate : Boolean;
+begin
+  Result := TRUE;
 end;
 
 procedure zglCiOSViewController.didRotateFromInterfaceOrientation( fromInterfaceOrientation : UIInterfaceOrientation );
