@@ -546,16 +546,16 @@ begin
   wndY := Y;
 
   if appInitedToHandle Then
-  {$IFDEF MACOSX}
     begin
+      {$IFDEF MACOSX}
       clipRgn := NewRgn();
       SetRectRgn( clipRgn, X, Y, X + wndWidth, Y + wndHeight );
       aglSetInteger( oglContext, AGL_CLIP_REGION, clipRgn );
       aglEnable( oglContext, AGL_CLIP_REGION );
       DisposeRgn( clipRgn );
+      {$ENDIF}
+      exit;
     end;
-  {$ENDIF}
-  exit;
 
 {$IFDEF USE_X11}
   if wndHandle <> 0 Then
