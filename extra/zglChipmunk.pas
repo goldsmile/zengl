@@ -24,7 +24,6 @@
 { mail: dr.andru@gmail.com                   }
 { JID:  dr.andru@googlemail.com              }
 { ICQ:  496929849                            }
-{ www:  http://andru-kun.inf.ua              }
 {                                            }
 {--------------------------------------------}
 unit zglChipmunk;
