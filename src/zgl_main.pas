@@ -49,7 +49,7 @@ uses
 
 const
   cs_ZenGL    = 'ZenGL 0.3.5';
-  cs_Date     = '2012.09.30';
+  cs_Date     = '2012.10.06';
   cv_major    = 0;
   cv_minor    = 3;
   cv_revision = 5;
@@ -159,9 +159,7 @@ const
   SND_CAN_PLAY_FILE     = $004000;
   CLIP_INVISIBLE        = $008000;
   {$IFDEF iOS}
-  SCR_ORIENTATION_PORTRAIT   = $100000;
-  SCR_ORIENTATION_LANDSCAPE  = $200000;
-  SND_ALLOW_BACKGROUND_MUSIC = $400000;
+  SND_ALLOW_BACKGROUND_MUSIC = $100000;
   {$ENDIF}
 
 procedure zgl_Init( FSAA : Byte = 0; StencilBits : Byte = 0 );
@@ -796,12 +794,6 @@ begin
     render2dClip := TRUE;
 
 {$IFDEF iOS}
-  if What and SCR_ORIENTATION_PORTRAIT > 0 Then
-    scrCanPortrait := TRUE;
-
-  if What and SCR_ORIENTATION_LANDSCAPE > 0 Then
-    scrCanLandscape := TRUE;
-
   if What and SND_ALLOW_BACKGROUND_MUSIC > 0 Then
     begin
       sndAllowBackgroundMusic := 1;
@@ -850,12 +842,6 @@ begin
     render2dClip := FALSE;
 
 {$IFDEF iOS}
-  if What and SCR_ORIENTATION_PORTRAIT > 0 Then
-    scrCanPortrait := FALSE;
-
-  if What and SCR_ORIENTATION_LANDSCAPE > 0 Then
-    scrCanLandscape := FALSE;
-
   if What and SND_ALLOW_BACKGROUND_MUSIC > 0 Then
     begin
       sndAllowBackgroundMusic := 0;
