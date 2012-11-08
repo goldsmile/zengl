@@ -43,7 +43,8 @@ uses
   iPhoneAll, CFRunLoop, CGGeometry, CFBase, CFString
   {$ENDIF}
   {$IFDEF ANDROID}
-  jni
+  jni,
+  zgl_threads
   {$ENDIF}
   ;
 
@@ -176,6 +177,7 @@ var
   appFinish       : JMethodID;
   appShowKeyboard : JMethodID;
   appHideKeyboard : JMethodID;
+  appLock         : zglTCriticalSection;
   //appIsLibrary    : Byte public name 'TC_SYSTEM_ISLIBRARY'; // workaround for the latest revisions of FreePascal 2.6.x
   {$ENDIF}
   appShowCursor : Boolean;
@@ -802,7 +804,7 @@ begin
       end;
     WM_MOUSEWHEEL:
       begin
-        if wParam > 0 Then
+        if ShortInt( wParam shr 16 ) > 0 Then
           begin
             mouseWheel[ M_WUP   ] := TRUE;
             mouseWheel[ M_WDOWN ] := FALSE;
@@ -1607,6 +1609,8 @@ begin
   appWorkDir    := appEnv^.GetStringUTFChars( appEnv, AppDirectory, nil );
   appHomeDir    := appEnv^.GetStringUTFChars( appEnv, HomeDirectory, nil ) + '/';
   appGotSysDirs := TRUE;
+
+  thread_CSInit( appLock );
 end;
 
 procedure Java_zengl_android_ZenGL_zglNativeDestroy( env : PJNIEnv; thiz : jobject );
@@ -1615,10 +1619,14 @@ begin
   appObject := thiz;
   appWork   := FALSE;
   zgl_Destroy();
+
+  thread_CSDone( appLock );
 end;
 
 procedure Java_zengl_android_ZenGL_zglNativeSurfaceCreated( env : PJNIEnv; thiz : jobject );
 begin
+  thread_CSEnter( appLock );
+
   appEnv        := env;
   appObject     := thiz;
 
@@ -1630,10 +1638,17 @@ begin
         app_PRestore();
       timer_Reset();
     end;
+
+  thread_CSLeave( appLock );
 end;
 
 procedure Java_zengl_android_ZenGL_zglNativeSurfaceChanged( env : PJNIEnv; thiz : jobject; Width, Height : jint );
 begin
+  thread_CSEnter( appLock );
+
+  appEnv    := env;
+  appObject := thiz;
+
   if not appInitialized Then
     begin
       scrDesktopW := Width;
@@ -1644,12 +1659,16 @@ begin
       zgl_Init();
     end else
       wnd_SetSize( Width, Height );
+
+  thread_CSLeave( appLock );
 end;
 
 procedure Java_zengl_android_ZenGL_zglNativeDrawFrame( env : PJNIEnv; thiz : jobject );
   var
     t : Double;
 begin
+  thread_CSEnter( appLock );
+
   appEnv    := env;
   appObject := thiz;
   if not appWork Then
@@ -1680,10 +1699,14 @@ begin
   appdt := t;
 
   app_Draw();
+
+  thread_CSLeave( appLock );
 end;
 
 procedure Java_zengl_android_ZenGL_zglNativeActivate( env : PJNIEnv; thiz : jobject; Activate : jboolean );
 begin
+  thread_CSEnter( appLock );
+
   appEnv    := env;
   appObject := thiz;
   if Activate > 0 Then
@@ -1709,16 +1732,24 @@ begin
         snd_MainLoop();
         {$ENDIF}
       end;
+
+  thread_CSLeave( appLock );
 end;
 
 function Java_zengl_android_ZenGL_zglNativeCloseQuery( env : PJNIEnv; thiz : jobject ) : Boolean;
 begin
+  thread_CSEnter( appLock );
+
   Result := app_PCloseQuery();
   if Result Then zgl_Exit();
+
+  thread_CSLeave( appLock );
 end;
 
 procedure Java_zengl_android_ZenGL_zglNativeTouch( env : PJNIEnv; thiz : jobject; ID : jint; X, Y, Pressure : jfloat );
 begin
+  thread_CSEnter( appLock );
+
   if appFlags and CORRECT_RESOLUTION > 0 Then
     begin
       touchX[ ID ]  := Round( ( X - scrAddCX ) / scrResCX );
@@ -1793,19 +1824,27 @@ begin
                 mouse_PRelease( M_BLEFT );
             end;
     end;
+
+  thread_CSLeave( appLock );
 end;
 
 procedure Java_zengl_android_ZenGL_zglNativeInputText( env : PJNIEnv; thiz : jobject; text : jstring );
 begin
+  thread_CSEnter( appLock );
+
   appEnv    := env;
   appObject := thiz;
 
   key_InputText( appEnv^.GetStringUTFChars( appEnv, text, nil ) );
+
+  thread_CSLeave( appLock );
 end;
 
 procedure Java_zengl_android_ZenGL_zglNativeBackspace( env : PJNIEnv; thiz : jobject );
 begin
+  thread_CSEnter( appLock );
   utf8_Backspace( keysText );
+  thread_CSLeave( appLock );
 end;
 {$ENDIF}
 

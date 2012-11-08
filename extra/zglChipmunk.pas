@@ -1,31 +1,30 @@
-{--------------------------------------------}
-{----------------= Chipmunk =----------------}
-{--------------------------------------------}
-{                                            }
-{ author:   Scott Lembcke                    }
-{ mail:     slembcke@gmail.com               }
-{                                            }
-{ version:  5.3.2                            }
-{ license:  MIT                              }
-{ homepage:                                  }
-{ http://code.google.com/p/chipmunk-physics/ }
-{                                            }
-{------------------ header ------------------}
-{                                            }
-{ version:  0.99 beta 11                     }
-{ date:     2012.01.29                       }
-{ homepage:                                  }
-{ http://code.google.com/p/chipmunk-pascal/  }
-{                                            }
-{------------ header written by: ------------}
-{                                            }
-{           Andrey Kemka aka Andru           }
-{                                            }
-{ mail: dr.andru@gmail.com                   }
-{ JID:  dr.andru@googlemail.com              }
-{ ICQ:  496929849                            }
-{                                            }
-{--------------------------------------------}
+{----------------------------------------------}
+{-----------------= Chipmunk =-----------------}
+{----------------------------------------------}
+{                                              }
+{ author:   Scott Lembcke                      }
+{ mail:     slembcke@gmail.com                 }
+{                                              }
+{ version:  5.3.2                              }
+{ license:  MIT                                }
+{ homepage: http://chipmunk-physics.net/       }
+{                                              }
+{------------------- header -------------------}
+{                                              }
+{ version:  1.0                                }
+{ date:     2012.10.12                         }
+{ homepage:                                    }
+{ https://github.com/Andru-kun/chipmunk-pascal }
+{                                              }
+{------------- header written by: -------------}
+{                                              }
+{           Kemka Andrey aka Andru             }
+{                                              }
+{ mail: dr.andru@gmail.com                     }
+{ JID:  dr.andru@googlemail.com                }
+{ ICQ:  496929849                              }
+{                                              }
+{----------------------------------------------}
 unit zglChipmunk;
 
 {$I zglCustomConfig.cfg}
@@ -64,10 +63,8 @@ unit zglChipmunk;
     {$IF DEFINED(iOS) and (not DEFINED(iPHONESIM))}
       {$LINKLIB libgcc_s.1.dylib}
     {$IFEND}
-    {$IFNDEF USE_ZENGL_STATIC}
-      {$IFDEF WINDOWS}
-        {$LINKLIB libmsvcrt.a}
-      {$ENDIF}
+    {$IFDEF WINDOWS}
+      {$LINKLIB libmsvcrt.a}
     {$ENDIF}
   {$ENDIF}
 {$ENDIF}
