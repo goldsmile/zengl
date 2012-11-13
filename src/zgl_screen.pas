@@ -528,6 +528,9 @@ begin
   {$IFDEF iOS}
   eglContext.presentRenderbuffer( GL_RENDERBUFFER );
   {$ENDIF}
+  {$IFDEF ANDROID}
+  appEnv^.CallVoidMethod( appEnv, appObject, appSwapBuffers );
+  {$ENDIF}
 {$ENDIF}
 end;
 

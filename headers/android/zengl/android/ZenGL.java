@@ -23,6 +23,10 @@
 */
 package zengl.android;
 
+import javax.microedition.khronos.egl.EGL10;
+import javax.microedition.khronos.egl.EGLContext;
+import javax.microedition.khronos.egl.EGLDisplay;
+import javax.microedition.khronos.egl.EGLSurface;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
@@ -170,6 +174,19 @@ public class ZenGL extends GLSurfaceView
 		zglNativeDestroy();
 		((Activity)getContext()).finish();
 		System.exit( 0 );
+	}
+	
+	public void SwapBuffers()
+	{
+	    EGL10 currEGL = (EGL10)EGLContext.getEGL();
+
+	    EGLDisplay currDisplay = currEGL.eglGetCurrentDisplay();
+	    if ( currDisplay == EGL10.EGL_NO_DISPLAY ) return;    
+
+	    EGLSurface currSurface = currEGL.eglGetCurrentSurface( EGL10.EGL_DRAW );
+	    if ( currSurface == EGL10.EGL_NO_SURFACE ) return;
+
+	    currEGL.eglSwapBuffers( currDisplay, currSurface);
 	}
 
 	public void ShowKeyboard()

@@ -175,6 +175,7 @@ var
   appClass        : JClass;
   appObject       : JObject;
   appFinish       : JMethodID;
+  appSwapBuffers  : JMethodID;
   appShowKeyboard : JMethodID;
   appHideKeyboard : JMethodID;
   appLock         : zglTCriticalSection;
@@ -1591,6 +1592,7 @@ begin
   appClass := appEnv^.FindClass( appEnv, 'zengl/android/ZenGL' );
 
   appFinish       := appEnv^.GetMethodID( appEnv, appClass, 'Finish', '()V' );
+  appSwapBuffers  := appEnv^.GetMethodID( appEnv, appClass, 'SwapBuffers', '()V' );
   appShowKeyboard := appEnv^.GetMethodID( appEnv, appClass, 'ShowKeyboard', '()V' );
   appHideKeyboard := appEnv^.GetMethodID( appEnv, appClass, 'HideKeyboard', '()V' );
 
@@ -1627,8 +1629,8 @@ procedure Java_zengl_android_ZenGL_zglNativeSurfaceCreated( env : PJNIEnv; thiz 
 begin
   thread_CSEnter( appLock );
 
-  appEnv        := env;
-  appObject     := thiz;
+  appEnv    := env;
+  appObject := thiz;
 
   if appInitialized Then
     begin
