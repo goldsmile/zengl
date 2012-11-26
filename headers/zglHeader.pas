@@ -1007,6 +1007,7 @@ type
       Particles : Integer;
             end;
     List  : array of zglPEmitter2D;
+    ListU : array of zglPPEmitter2D;
   end;
 
   zglTEmitter2DManager = record
