@@ -740,8 +740,8 @@ begin
         Font.MaxShiftY := 0;
         for i := 0 to Font.Count.Pages - 1 do
           begin
-            u := 1 / Font.Pages[ i ].Width;
-            v := 1 / Font.Pages[ i ].Height;
+            u := 1 / fg_PageSize;
+            v := 1 / fg_PageSize;
 
             zgl_GetMem( pData, sqr( fg_PageSize ) * 4 );
             for j := 0 to sqr( fg_PageChars ) - 1 do
