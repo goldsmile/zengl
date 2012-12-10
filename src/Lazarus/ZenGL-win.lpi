@@ -16,9 +16,9 @@
     <VersionInfo>
       <UseVersionInfo Value="True"/>
       <MinorVersionNr Value="3"/>
-      <RevisionNr Value="4"/>
+      <RevisionNr Value="6"/>
       <CharSet Value="04B0"/>
-      <StringTable CompanyName="Kemka Andrey aka Andru" FileDescription="Cross-platform game development library" InternalName="ZenGL" LegalCopyright="Kemka Andrey aka Andru" OriginalFilename="ZenGL" ProductName="ZenGL" ProductVersion="0.3.4"/>
+      <StringTable CompanyName="Kemka Andrey aka Andru" FileDescription="Cross-platform game development library" InternalName="ZenGL" LegalCopyright="Kemka Andrey aka Andru" OriginalFilename="ZenGL" ProductName="ZenGL" ProductVersion="0.3.6"/>
     </VersionInfo>
     <BuildModes Count="4">
       <Item1 Name="Release" Default="True"/>
@@ -26,7 +26,7 @@
         <CompilerOptions>
           <Version Value="11"/>
           <Target>
-            <Filename Value="./ZenGL.dll"/>
+            <Filename Value="./ZenGL"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -66,7 +66,7 @@
         <CompilerOptions>
           <Version Value="11"/>
           <Target>
-            <Filename Value="./ZenGL.dll"/>
+            <Filename Value="./ZenGL"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -116,7 +116,7 @@
         <CompilerOptions>
           <Version Value="11"/>
           <Target>
-            <Filename Value="./ZenGL.dll"/>
+            <Filename Value="./ZenGL"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -450,7 +450,7 @@
   <CompilerOptions>
     <Version Value="11"/>
     <Target>
-      <Filename Value="./ZenGL.dll"/>
+      <Filename Value="./ZenGL"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
