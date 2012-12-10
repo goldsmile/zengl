@@ -288,26 +288,38 @@ end;
 
 procedure TForm1.SpinLeftChange(Sender: TObject);
 begin
-  fg_FontPadding[ 0 ] := SpinLeft.Value;
-  UpdateFont();
+  if fg_FontPadding[ 0 ] <> SpinLeft.Value Then
+    begin
+      fg_FontPadding[ 0 ] := SpinLeft.Value;
+      UpdateFont();
+    end;
 end;
 
 procedure TForm1.SpinTopChange(Sender: TObject);
 begin
-  fg_FontPadding[ 1 ] := SpinTop.Value;
-  UpdateFont();
+  if fg_FontPadding[ 1 ] <> SpinTop.Value Then
+    begin
+      fg_FontPadding[ 1 ] := SpinTop.Value;
+      UpdateFont();
+    end;
 end;
 
 procedure TForm1.SpinRightChange(Sender: TObject);
 begin
-  fg_FontPadding[ 2 ] := SpinRight.Value;
-  UpdateFont();
+  if fg_FontPadding[ 2 ] <> SpinRight.Value Then
+    begin
+      fg_FontPadding[ 2 ] := SpinRight.Value;
+      UpdateFont();
+    end;
 end;
 
 procedure TForm1.SpinBottomChange(Sender: TObject);
 begin
-  fg_FontPadding[ 3 ] := SpinBottom.Value;
-  UpdateFont();
+  if fg_FontPadding[ 3 ] <> SpinBottom.Value Then
+    begin
+      fg_FontPadding[ 3 ] := SpinBottom.Value;
+      UpdateFont();
+    end;
 end;
 
 procedure TForm1.ButtonSaveFontClick(Sender: TObject);
