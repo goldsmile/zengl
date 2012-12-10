@@ -78,7 +78,7 @@ type
     Count    : record
       Items    : Integer;
       Decoders : Integer;
-              end;
+               end;
     First    : zglTVideoStream;
     Decoders : array of zglPVideoDecoder;
   end;
@@ -169,7 +169,7 @@ begin
 
   if Result._private.Decoder.Open( Result^, FileName ) Then
     begin
-      Result.Texture := tex_CreateZero( Result.Info.Width, Result.Info.Height, $FF000000 );
+      Result.Texture := tex_CreateZero( Result.Info.Width, Result.Info.Height );
       GetMem( Result.Data, Result.Info.Width * Result.Info.Height * 4 );
       FillChar( Result.Data[ 0 ], Result.Info.Width * Result.Info.Height * 4, 255 );
       video_Update( Result, 0 );
@@ -207,7 +207,10 @@ end;
 
 procedure video_Update( var Stream : zglPVideoStream; Milliseconds : Double; Loop : Boolean = FALSE );
   var
-    frame : Integer;
+    frame  : Integer;
+    data   : PLongWordArray;
+    i      : Integer;
+    sw, sh : Integer;
 begin
   if not Assigned( Stream ) Then exit;
 
@@ -233,7 +236,24 @@ begin
   Stream._private.Decoder.Update( Stream^, Milliseconds, Stream.Data );
 
   if Stream.Frame <> frame Then
-    tex_SetData( Stream.Texture, Stream.Data, 0, 0, Stream.Info.Width, Stream.Info.Height );
+    begin
+      tex_SetData( Stream.Texture, Stream.Data, 0, 0, Stream.Info.Width, Stream.Info.Height );
+
+      // TODO: Remove it and implement via Stride in decoder
+      sw := Stream.Info.Width;
+      sh := Stream.Info.Height;
+      if sw <> u_GetPOT( sw ) Then
+        begin
+          GetMem( data, ( sh + 1 ) * 4 );
+          for i := 0 to sh - 1 do
+            data[ i ] := PLongWordArray( Stream.Data )[ ( sw - 1 ) + sw * i ];
+          data[ sh ] := data[ sh - 1 ];
+          tex_SetData( Stream.Texture, PByteArray( data ), sw, 0, 1, sh + 1 );
+          FreeMem( data );
+        end;
+      if sh <> u_GetPOT( sh ) Then
+        tex_SetData( Stream.Texture, Stream.Data, 0, sh, sw, 1 );
+    end;
 end;
 
 procedure video_Seek( var Stream : zglPVideoStream; Milliseconds : Double );
