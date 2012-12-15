@@ -248,7 +248,9 @@ begin
           for i := 0 to sh - 1 do
             data[ i ] := PLongWordArray( Stream.Data )[ ( sw - 1 ) + sw * i ];
           data[ sh ] := data[ sh - 1 ];
+          INC( Stream.Texture.Height );
           tex_SetData( Stream.Texture, PByteArray( data ), sw, 0, 1, sh + 1 );
+          DEC( Stream.Texture.Height );
           FreeMem( data );
         end;
       if sh <> u_GetPOT( sh ) Then
