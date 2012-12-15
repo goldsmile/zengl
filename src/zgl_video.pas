@@ -252,7 +252,12 @@ begin
           FreeMem( data );
         end;
       if sh <> u_GetPOT( sh ) Then
-        tex_SetData( Stream.Texture, Stream.Data, 0, sh, sw, 1 );
+        begin
+          // tricky hack
+          INC( Stream.Texture.Height );
+          tex_SetData( Stream.Texture, PByteArray( @Stream.Data[ sw * ( sh - 1 ) * 4  ] ), 0, 0, sw, 1 );
+          DEC( Stream.Texture.Height );
+        end;
     end;
 end;
 
