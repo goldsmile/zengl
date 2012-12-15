@@ -61,7 +61,7 @@
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base_Win32)'!=''">
 			<DCC_ExeOutput>..\..\..\bin\i386-win32</DCC_ExeOutput>
-			<DCC_UnitSearchPath>..\..\..\src;..\..\..\headers;..\..\..\extra;..\..\..\lib\zlib\delphi;..\..\..\lib\zip\delphi;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+			<DCC_UnitSearchPath>..\..\..\src;..\..\..\headers;..\..\..\extra;..\..\..\lib\theora\delphi;..\..\..\lib\zlib\delphi;..\..\..\lib\zip\delphi;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
 			<DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
 			<DCC_UsePackage>bindcompvcl;vcltouch;vcldbx;VclSmp;IndySystem;IndyCore;vcl;dsnapcon;vclx;svnui;svn;vclimg;IndyProtocols;fmi;bdertl;vclactnband;vcldb;vcldsnap;$(DCC_UsePackage)</DCC_UsePackage>
 			<VerInfo_Locale>1033</VerInfo_Locale>

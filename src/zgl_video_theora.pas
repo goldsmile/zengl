@@ -25,14 +25,8 @@ unit zgl_video_theora;
 
 {$I zgl_config.cfg}
 
-{$IFDEF FPC}
-  {$DEFINE YUV2RGBA_Robin_Watts}
-{$ENDIF}
-
-{$IFDEF YUV2RGBA_Robin_Watts}
-  {$L yuv2bgr16tab.o}
-  {$L yuv420rgb8888.o}
-{$ENDIF}
+{$L yuv2bgr16tab}
+{$L yuv420rgb8888}
 
 interface
 
@@ -62,10 +56,8 @@ type
     Time        : Double;
   end;
 
-{$IFDEF YUV2RGBA_Robin_Watts}
-procedure yuv420_2_rgb8888( dst_ptr, y_ptr, u_ptr, v_ptr : pcuint8; width, height, y_span, uv_span, dst_span : cint32; tables : pcuint32; dither : cint32 ); cdecl; external;
+procedure yuv420_2_rgb8888( dst_ptr, y_ptr, u_ptr, v_ptr : pcuchar; width, height, y_span, uv_span, dst_span : cint32; tables : pcuint32; dither : cint32 ); cdecl; external;
 function get_yuv2bgr565_table : pcuint32; cdecl; external;
-{$ENDIF}
 
 var
   theoraDecoderOGV : zglTVideoDecoder;
@@ -250,12 +242,7 @@ end;
 function theora_Update( var TheoraData : zglTTheoraData; Time : Double; Data : PByteArray ) : Integer;
   var
     ycbcr      : th_ycbcr_buffer;
-    {$IFDEF YUV2RGBA_Robin_Watts}
     dataOrig   : PByteArray;
-    {$ELSE}
-    Y, Cb, Cr  : Integer;
-    {$ENDIF}
-    i, j       : Integer;
     videoReady : Boolean;
     granulePos : ogg_int64_t;
     page       : ogg_page;
@@ -292,11 +279,10 @@ begin
       begin
         th_decode_ycbcr_out( TheoraData.DecoderCtx, @ycbcr );
 
-      {$IFDEF YUV2RGBA_Robin_Watts}
         dataOrig := Data;
         INC( PByte( Data ), ( ycbcr[ 0 ].height - 1 ) * ycbcr[ 0 ].width * 4 );
 
-        yuv420_2_rgb8888( pcuint8( Data ), ycbcr[ 0 ].data, ycbcr[ 1 ].data, ycbcr[ 2 ].data,
+        yuv420_2_rgb8888( pcuchar( Data ), ycbcr[ 0 ].data, ycbcr[ 1 ].data, ycbcr[ 2 ].data,
                           ycbcr[ 0 ].width, ycbcr[ 0 ].height,
                           ycbcr[ 0 ].stride, ycbcr[ 1 ].stride, -ycbcr[ 0 ].width * 4,
                           get_yuv2bgr565_table(), 0 );
@@ -313,32 +299,6 @@ begin
         {$ELSE}
         Data := dataOrig;
         {$ENDIF}
-      {$ELSE}
-        INC( PByte( Data ), ( ycbcr[ 0 ].height - 1 ) * ycbcr[ 0 ].width * 4 );
-        for j := 0 to ycbcr[ 0 ].height - 1 do
-          begin
-            for i := 0 to ycbcr[ 0 ].width - 1 do
-              begin
-                Y  := 9535 * ( PByteArray( ycbcr[ 0 ].data )[ i ] - 16 );
-                Cb := PByteArray( ycbcr[ 1 ].data )[ i shr 1 ] - 128;
-                Cr := PByteArray( ycbcr[ 2 ].data )[ i shr 1 ] - 128;
-
-                Data[ 0 ] := clamp( Y + 13074 * Cr ) shr 13;
-                Data[ 1 ] := clamp( Y - 6660 * Cr - 3203 * Cb ) shr 13;
-                Data[ 2 ] := clamp( Y + 16531 * Cb ) shr 13;
-                INC( PByte( Data ), 4 );
-              end;
-
-            DEC( PByte( Data ), ycbcr[ 0 ].width * 8 );
-            INC( ycbcr[ 0 ].data, ycbcr[ 0 ].stride );
-
-            if j and 1 > 0 Then
-              begin
-                INC( ycbcr[ 1 ].data, ycbcr[ 1 ].stride );
-                INC( ycbcr[ 2 ].data, ycbcr[ 2 ].stride );
-              end;
-          end;
-      {$ENDIF}
       end;
 end;
 

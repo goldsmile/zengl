@@ -221,13 +221,10 @@ end;
 
 procedure ogg_LoadFromMemory( const Memory : zglTMemory; out Data : PByteArray; out Size, Format, Frequency : LongWord );
   var
-    bytesRead : Integer;
-    buffer    : Pointer;
-    _end      : Boolean;
-
-    _vi : pvorbis_info;
-    _vf : OggVorbis_File;
-    _vc : ov_callbacks;
+    _end : Boolean;
+    _vi  : pvorbis_info;
+    _vf  : OggVorbis_File;
+    _vc  : ov_callbacks;
 begin
   if not vorbisInit Then exit;
 

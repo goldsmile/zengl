@@ -4,7 +4,7 @@
 	Version="9,00"
 	Name="08 - Sprite Engine"
 	ProjectGUID="{901DE1AC-ED60-49B1-BF75-B4C090F491EE}"
-	RootNamespace="My09SpriteEngine"
+	RootNamespace="My08SpriteEngine"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="131072"
 	>
