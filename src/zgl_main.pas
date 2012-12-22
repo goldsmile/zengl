@@ -48,8 +48,8 @@ uses
   zgl_types;
 
 const
-  cs_ZenGL    = 'ZenGL 0.3.6';
-  cs_Date     = '2012.12.16';
+  cs_ZenGL    = 'ZenGL 0.3.6 [ End of the World ]';
+  cs_Date     = '2012.12.21';
   cv_major    = 0;
   cv_minor    = 3;
   cv_revision = 6;

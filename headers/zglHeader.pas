@@ -3,7 +3,7 @@
 {--------------------------------}
 {                                }
 { version:  0.3.6                }
-{ date:     2012.12.16           }
+{ date:     2012.12.21           }
 { license:  zlib                 }
 { homepage: http://zengl.org     }
 {                                }

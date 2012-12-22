@@ -27,6 +27,8 @@ unit zgl_video_theora;
 
 {$L yuv2bgr16tab}
 {$L yuv420rgb8888}
+{$L yuv422rgb8888}
+{$L yuv444rgb8888}
 
 interface
 
@@ -56,8 +58,10 @@ type
     Time        : Double;
   end;
 
+function  get_yuv2bgr565_table : pcuint32; cdecl; external;
 procedure yuv420_2_rgb8888( dst_ptr, y_ptr, u_ptr, v_ptr : pcuchar; width, height, y_span, uv_span, dst_span : cint32; tables : pcuint32; dither : cint32 ); cdecl; external;
-function get_yuv2bgr565_table : pcuint32; cdecl; external;
+procedure yuv422_2_rgb8888( dst_ptr, y_ptr, u_ptr, v_ptr : pcuchar; width, height, y_span, uv_span, dst_span : cint32; tables : pcuint32; dither : cint32 ); cdecl; external;
+procedure yuv444_2_rgb8888( dst_ptr, y_ptr, u_ptr, v_ptr : pcuchar; width, height, y_span, uv_span, dst_span : cint32; tables : pcuint32; dither : cint32 ); cdecl; external;
 
 var
   theoraDecoderOGV : zglTVideoDecoder;
@@ -176,8 +180,8 @@ begin
     begin
       TheoraData.DecoderCtx := th_decode_alloc( @TheoraData.TheoraInfo, setupInfo );
 
-      Width     := TheoraData.TheoraInfo.frame_width;
-      Height    := TheoraData.TheoraInfo.frame_height;
+      Width     := TheoraData.TheoraInfo.pic_width;
+      Height    := TheoraData.TheoraInfo.pic_height;
       FrameRate := TheoraData.TheoraInfo.fps_numerator / TheoraData.TheoraInfo.fps_denominator;
       Duration  := 0;
       Frames    := 0;
@@ -219,24 +223,7 @@ begin
     end else
       Result := FALSE;
 
-  if TheoraData.TheoraInfo.pixel_fmt <> TH_PF_420 Then
-    begin
-      log_Add( 'Theora: Pixel format is not supported(YUV 4:2:0 is needed)' );
-      Result := FALSE;
-    end;
-
   th_comment_clear( @comment );
-end;
-
-function clamp( value : Integer ) : Integer; {$IFDEF USE_INLINE} inline; {$ENDIF}
-begin
-  if value > 2088960 Then
-    Result := 2088960
-  else
-    if value < 0 Then
-      Result := 0
-    else
-      Result := value;
 end;
 
 function theora_Update( var TheoraData : zglTTheoraData; Time : Double; Data : PByteArray ) : Integer;
@@ -280,12 +267,25 @@ begin
         th_decode_ycbcr_out( TheoraData.DecoderCtx, @ycbcr );
 
         dataOrig := Data;
-        INC( PByte( Data ), ( ycbcr[ 0 ].height - 1 ) * ycbcr[ 0 ].width * 4 );
+        INC( PByte( Data ), ( TheoraData.TheoraInfo.pic_height - 1 ) * TheoraData.TheoraInfo.pic_width * 4 );
 
-        yuv420_2_rgb8888( pcuchar( Data ), ycbcr[ 0 ].data, ycbcr[ 1 ].data, ycbcr[ 2 ].data,
-                          ycbcr[ 0 ].width, ycbcr[ 0 ].height,
-                          ycbcr[ 0 ].stride, ycbcr[ 1 ].stride, -ycbcr[ 0 ].width * 4,
-                          get_yuv2bgr565_table(), 0 );
+        case TheoraData.TheoraInfo.pixel_fmt of
+          TH_PF_420:
+            yuv420_2_rgb8888( pcuchar( Data ), ycbcr[ 0 ].data, ycbcr[ 1 ].data, ycbcr[ 2 ].data,
+                              TheoraData.TheoraInfo.pic_width, TheoraData.TheoraInfo.pic_height,
+                              ycbcr[ 0 ].stride, ycbcr[ 1 ].stride, -TheoraData.TheoraInfo.pic_width * 4,
+                              get_yuv2bgr565_table(), 0 );
+          TH_PF_422:
+            yuv422_2_rgb8888( pcuchar( Data ), ycbcr[ 0 ].data, ycbcr[ 1 ].data, ycbcr[ 2 ].data,
+                              TheoraData.TheoraInfo.pic_width, TheoraData.TheoraInfo.pic_height,
+                              ycbcr[ 0 ].stride, ycbcr[ 1 ].stride, -TheoraData.TheoraInfo.pic_width * 4,
+                              get_yuv2bgr565_table(), 0 );
+          TH_PF_444:
+            yuv444_2_rgb8888( pcuchar( Data ), ycbcr[ 0 ].data, ycbcr[ 1 ].data, ycbcr[ 2 ].data,
+                              TheoraData.TheoraInfo.pic_width, TheoraData.TheoraInfo.pic_height,
+                              ycbcr[ 0 ].stride, ycbcr[ 1 ].stride, -TheoraData.TheoraInfo.pic_width * 4,
+                              get_yuv2bgr565_table(), 0 );
+        end;
 
         {$IFDEF ANDROID}
         INC( PByte( dataOrig ), 3 );
