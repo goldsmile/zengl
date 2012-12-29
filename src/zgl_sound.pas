@@ -1239,6 +1239,7 @@ function snd_ProcStream( data : Pointer ) : LongInt; {$IFDEF USE_EXPORT_C} regis
     b1Size, b2Size : LongWord;
     position       : LongWord;
     fillSize       : LongWord;
+    events         : array[ 0..1 ] of LongWord;
   {$ENDIF}
 
   procedure LoopStream( _buffer : PByteArray; _bufferSize : LongWord );
@@ -1335,7 +1336,7 @@ begin
       b1Size := 0;
       b2Size := 0;
 
-      if ( fillSize > 0 {some drivers don't know what is standard...} ) and ( sfSource[ id ].Lock( sfLastPos[ id ], fillSize, block1, b1Size, block2, b2Size, 0 ) = DS_OK ) Then
+      if ( fillSize > 0 {some drivers are stupid...} ) and ( sfSource[ id ].Lock( sfLastPos[ id ], fillSize, block1, b1Size, block2, b2Size, 0 ) = DS_OK ) Then
         begin
           sfLastPos[ id ] := position;
 
@@ -1357,7 +1358,9 @@ begin
               {$IFNDEF USE_OPENAL}
               sfNotifyPos[ id ].dwOffset := bytesRead;
               ResetEvent( sfNotifyEvent[ id ] );
-              WaitForSingleObject( sfNotifyEvent[ id ], INFINITE );
+              events[ 0 ] := sfNotifyEvent[ id ];
+              events[ 1 ] := LongWord( sfEvent[ id ] );
+              WaitForMultipleObjects( 2, @events[ 0 ], FALSE, INFINITE );
               sfSource[ id ].Stop();
               {$ENDIF}
               thread_CSEnter( sfCS[ id ] );
