@@ -198,7 +198,7 @@ begin
           while TRUE do
             begin
               ret := ogg_sync_pageout( @TheoraData.SyncState, @page );
-              if ret <> 1 Then break;
+              if ret = 0 Then break;
               if ogg_page_serialno( @page ) <> TheoraData.StreamState.serialno Then continue;
 
               granulePos := ogg_page_granulepos( @page );
