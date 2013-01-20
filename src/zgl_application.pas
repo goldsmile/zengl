@@ -1676,6 +1676,7 @@ begin
   if not appWork Then
     begin
       appEnv^.CallVoidMethod( appEnv, appObject, appFinish );
+      thread_CSLeave( appLock );
       exit;
     end;
 
@@ -1742,8 +1743,8 @@ function Java_zengl_android_ZenGL_zglNativeCloseQuery( env : PJNIEnv; thiz : job
 begin
   thread_CSEnter( appLock );
 
-  Result := app_PCloseQuery();
-  if Result Then zgl_Exit();
+  Result := FALSE;
+  if app_PCloseQuery() Then zgl_Exit();
 
   thread_CSLeave( appLock );
 end;
