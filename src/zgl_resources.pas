@@ -151,7 +151,7 @@ function  res_GetCompleted : Integer;
 
 var
   resUseThreaded : Boolean;
-  resCompleted   : Integer;
+  resCompleted   : Integer = 100;
 
 implementation
 uses
@@ -826,5 +826,11 @@ function res_GetCompleted : Integer;
 begin
   Result := resCompleted;
 end;
+
+var
+  i : Integer;
+initialization
+  for i := 0 to 255 do
+    resQueuePercentage[ i ] := 100;
 
 end.
