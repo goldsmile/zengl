@@ -351,8 +351,8 @@ begin
 
       if ( UIDevice.currentDevice.userInterfaceIdiom = UIUserInterfaceIdiomPhone ) and ( UIDevice.currentDevice.model.rangeOfString( utf8_GetNSString( 'iPad' ) ).location <> NSNotFound ) Then
         begin
-          scrCurrModeW := 480;
-          scrCurrModeH := 320;
+          scrCurrModeW := Round( 480 * UIScreen.mainScreen.scale );
+          scrCurrModeH := Round( 320 * UIScreen.mainScreen.scale );
         end;
     end else
       begin
