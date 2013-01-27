@@ -541,7 +541,9 @@ begin
   if Assigned( pengine2d.ListU[ ID ] ) Then
     pengine2d.ListU[ ID ]^ := nil;
   emitter2d_Free( pengine2d.List[ ID ] );
-  pengine2d.List[ ID ] := pengine2d.List[ pengine2d.Count.Emitters - 1 ];
+  pengine2d.List[ ID ]    := pengine2d.List[ pengine2d.Count.Emitters - 1 ];
+  pengine2d.List[ ID ].ID := ID;
+  pengine2d.ListU[ ID ]   := pengine2d.ListU[ pengine2d.Count.Emitters - 1 ];
   DEC( pengine2d.Count.Emitters );
 end;
 
