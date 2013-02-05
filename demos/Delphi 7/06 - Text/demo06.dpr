@@ -50,9 +50,9 @@ begin
   batch2d_Begin();
 
   // RU: ZenGL работает исключительно с кодировкой UTF-8, поэтому весь текст должен быть в UTF-8. ≈сли необходимо вывести какой-либо текст(не английский)
-  //     использу€ строки внутри pas-файлов и Delphi версии ниже 2009, необходимо использовать функцию AnsiToUtf8.
+  //     использу€ строки внутри pas-файлов и Delphi версии ниже 2009, необходимо использовать функцию UTF8Encode.
   // EN: ZenGL works only with UTF-8 encoding, so all text should be encoded with UTF-8. If you want to write some text(not English) using strings
-  //     inside pas-files and version of Delphi is lower than 2009, then you need to use function AnsiToUtf8.
+  //     inside pas-files and version of Delphi is lower than 2009, then you need to use function UTF8Encode.
 
   text_Draw( fntMain, 400, 25, 'String with center alignment', TEXT_HALIGN_CENTER );
 
