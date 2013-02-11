@@ -1341,11 +1341,11 @@ begin
           sfLastPos[ id ] := position;
 
           bytesRead := sfStream[ id ]._decoder.Read( sfStream[ id ], block1, b1Size, _end );
-          LoopStream( PByteArray( Ptr( block1 ) + bytesRead ), b1Size );
+          LoopStream( PByteArray( Ptr( block1 ) + Ptr( bytesRead ) ), b1Size );
           if ( b2Size <> 0 ) and ( not _end ) Then
             begin
               INC( bytesRead, sfStream[ ID ]._decoder.Read( sfStream[ id ], block2, b2Size, _end ) );
-              LoopStream( PByteArray( Ptr( block2 ) + bytesRead ), b2Size );
+              LoopStream( PByteArray( Ptr( block2 ) + Ptr( bytesRead ) ), b2Size );
             end;
 
           sfSource[ id ].Unlock( block1, b1Size, block2, b2Size );
