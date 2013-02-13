@@ -187,18 +187,19 @@ begin
       Frames    := 0;
       Result    := TRUE;
 
-      for i := 1 to 64 do
+      i := 1;
+      while TRUE do
         begin
           ogg_sync_reset( @TheoraData.SyncState );
-          buffer_Seek( TheoraData, -4096 * i, FSM_END );
+          buffer_Seek( TheoraData, -4 * i, FSM_END );
 
-          buffer_ReadData( TheoraData, 4096 * i );
+          buffer_ReadData( TheoraData, 4 * i );
           ogg_sync_pageseek( @TheoraData.SyncState, @page );
 
           while TRUE do
             begin
               ret := ogg_sync_pageout( @TheoraData.SyncState, @page );
-              if ret = 0 Then break;
+              if ret <> 1 Then break;
               if ogg_page_serialno( @page ) <> TheoraData.StreamState.serialno Then continue;
 
               granulePos := ogg_page_granulepos( @page );
@@ -209,6 +210,7 @@ begin
                   INC( Frames );
             end;
 
+          INC( i );
           if Frames > 0 Then break;
         end;
 

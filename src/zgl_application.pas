@@ -81,7 +81,7 @@ type
     function textFieldShouldBeginEditing( textField : UITextField ) : Boolean; message 'textFieldShouldBeginEditing:';
     function textField_shouldChangeCharactersInRange_replacementString( textField : UITextField; range : NSRange; string_ : NSString ) : Boolean; message 'textField:shouldChangeCharactersInRange:replacementString:';
     function textFieldShouldReturn( textField : UITextField ) : Boolean; message 'textFieldShouldReturn:';
-    function textFieldShouldEndEditing( textField : UITextField ) : Boolean; message 'textFieldShouldEndEditing:';
+    function textFieldDidEndEditing( textField : UITextField ) : Boolean; message 'textFieldDidEndEditing:';
     procedure textFieldEditingChanged; message 'textFieldEditingChanged';
   end;
 
@@ -1305,7 +1305,7 @@ begin
   keysTextField.removeFromSuperview();
 end;
 
-function zglCAppDelegate.textFieldShouldEndEditing( textField : UITextField ) : Boolean;
+function zglCAppDelegate.textFieldDidEndEditing( textField : UITextField ) : Boolean;
 begin
   Result := textFieldShouldReturn( textField );
 end;
