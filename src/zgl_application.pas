@@ -225,7 +225,9 @@ begin
   scr_Clear();
   if Assigned( app_PDraw ) Then
     app_PDraw();
+{$IFNDEF ANDROID}
   scr_Flush();
+{$ENDIF}
   if not appPause Then
     INC( appFPSCount );
 end;
