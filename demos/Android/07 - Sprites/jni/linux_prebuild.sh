@@ -5,6 +5,7 @@ cp ../../../../bin/Android/armv6/libogg.so ../libs/armeabi/
 cp ../../../../bin/Android/armv6/libvorbis.so ../libs/armeabi/
 cp ../../../../bin/Android/armv6/libtheoradec.so ../libs/armeabi/
 cp ../../../../bin/Android/armv6/libchipmunk.so ../libs/armeabi/
+cp ../../../../bin/Android/armv6/libGLU.so ../libs/armeabi/
 # copy resources
 cp ../../../../bin/data/zengl.png ../assets
 cp ../../../../bin/data/back01.jpg ../assets

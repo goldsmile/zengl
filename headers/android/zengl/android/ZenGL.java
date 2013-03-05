@@ -69,6 +69,7 @@ public class ZenGL extends GLSurfaceView
 		System.loadLibrary( "vorbis" );
 		System.loadLibrary( "theoradec" );
 		System.loadLibrary( "chipmunk" );
+		System.loadLibrary( "GLU" );
 		System.loadLibrary( appName );
 
 		SourceDir = appSourceDir;
