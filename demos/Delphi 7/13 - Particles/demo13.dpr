@@ -47,19 +47,19 @@ begin
   fntMain := font_LoadFromFile( dirRes + 'font.zfi' );
 
   // EN: Load three types of fire emitters.
-  // RU: Р—Р°РіСЂСѓР·РєР° С‚СЂС‘С… СЂР°Р·РЅС‹С… РІРёРґРѕРІ СЌРјРёС‚С‚РµСЂРѕРІ РѕРіРЅСЏ.
+  // RU: Загрузка трёх разных видов эмиттеров огня.
   emitterFire[ 0 ] := emitter2d_LoadFromFile( dirRes + 'emitter_fire00.zei' );
   emitterFire[ 1 ] := emitter2d_LoadFromFile( dirRes + 'emitter_fire01.zei' );
   emitterFire[ 2 ] := emitter2d_LoadFromFile( dirRes + 'emitter_fire02.zei' );
 
   // EN: Set own particels engine.
-  // RU: РЈСЃС‚Р°РЅРѕРІРєР° СЃРѕР±СЃС‚РІРµРЅРЅРѕРіРѕ РґРІРёР¶РєР° СЌРјРёС‚С‚РµСЂРѕРІ.
+  // RU: Установка собственного движка эмиттеров.
   pengine2d_Set( @particles );
 
   // EN: Add 6 fire emitters to particles engine. Second parameter of function returns pointer to instance of new emitter, which can be processed manually.
   //     This instance will be nil after the death, so check everything.
-  // RU: Р”РѕР±Р°РІР»СЏРµРј РІ РґРІРёР¶РѕРє 6 СЌРјРёС‚С‚РµСЂРѕРІ РѕРіРЅСЏ. Р’С‚РѕСЂРѕР№ РїР°СЂР°РјРµС‚СЂ С„СѓРЅРєС†РёРё РїРѕР·РІРѕР»СЏРµС‚ РїРѕР»СѓС‡РёС‚СЊ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РєРѕРЅРєСЂРµС‚РЅС‹Р№ СЌРєР·РµРјРїР»СЏСЂ СЌРјРёС‚С‚РµСЂР°, РєРѕС‚РѕСЂС‹Р№ РјРѕР¶РЅРѕ Р±СѓРґРµС‚ РѕР±СЂР°Р±Р°С‚С‹РІР°С‚СЊ РІСЂСѓС‡РЅСѓСЋ.
-  //     Р”Р°РЅРЅС‹Р№ СЌРєР·РµРјРїР»СЏСЂ РїРѕСЃР»Рµ СЃРјРµСЂС‚Рё Р±СѓРґРµС‚ СЃРѕРґРµСЂР¶Р°С‚СЊ nil, РїРѕСЌС‚РѕРјСѓ РёСЃРїРѕР»СЊР·СѓР№С‚Рµ РїСЂРѕРІРµСЂРєСѓ.
+  // RU: Добавляем в движок 6 эмиттеров огня. Второй параметр функции позволяет получить указатель на конкретный экземпляр эмиттера, который можно будет обрабатывать вручную.
+  //     Данный экземпляр после смерти будет содержать nil, поэтому используйте проверку.
   pengine2d_AddEmitter( emitterFire[ 0 ], nil, 642, 190 );
   pengine2d_AddEmitter( emitterFire[ 0 ], nil, 40, 368 );
   pengine2d_AddEmitter( emitterFire[ 0 ], nil, 246, 368 );
@@ -84,7 +84,7 @@ begin
   ssprite2d_Draw( texBack, 0, 0, 800, 600, 0 );
 
   // EN: Rendering of all emitters in current particles engine.
-  // RU: Р РµРЅРґРµСЂРёРЅРі РІСЃРµС… СЌРјРёС‚С‚РµСЂРѕРІ РІ С‚РµРєСѓС‰РµРј РґРІРёР¶РєРµ С‡Р°СЃС‚РёС†.
+  // RU: Рендеринг всех эмиттеров в текущем движке частиц.
   pengine2d_Draw();
 
   if debug Then
@@ -110,13 +110,13 @@ end;
 procedure Update( dt : Double );
 begin
   // EN: Process all emitters in current particles engine.
-  // RU: РћР±СЂР°Р±РѕС‚РєР° РІСЃРµС… СЌРјРёС‚С‚РµСЂРѕРІ РІ С‚РµРєСѓС‰РµРј РґРІРёР¶РєРµ С‡Р°СЃС‚РёС†.
+  // RU: Обработка всех эмиттеров в текущем движке частиц.
   pengine2d_Proc( dt );
 end;
 
 procedure Quit;
 begin
-  // RU: РћС‡РёС‰Р°РµРј РїР°РјСЏС‚СЊ РѕС‚ СЃРѕР·РґР°РЅРЅС‹С… СЌРјРёС‚С‚РµСЂРѕРІ.
+  // RU: Очищаем память от созданных эмиттеров.
   // EN: Free allocated memory for emitters.
   pengine2d_Set( @particles );
   pengine2d_ClearAll();
